@@ -1,11 +1,8 @@
-package com.zhiling.bank.dao;
+package com.zhiling.bank.service;
 
 import com.zhiling.bank.entity.User;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface UserDAO {
-
+public interface UserService {
     User islogin(User vo);
 
     int register(User vo);

@@ -1,0 +1,21 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: ShopServer
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: Ta:${server.port}
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
+info:
+  app:
+    name: T
+  author:
+    name: Mr.
+  server:
+    port: ${server.port}
+

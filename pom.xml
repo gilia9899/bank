@@ -12,6 +12,7 @@
         <module>system-control</module>
         <module>api-commons</module>
         <module>eureka-server7001</module>
+        <module>service-user8003</module>
     </modules>
     <distributionManagement>
         <site>

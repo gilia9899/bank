@@ -15,21 +15,51 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User islogin(User vo) {
+        if (vo.getUsername()==null||vo.getUsername().equals("")){
+            return null;
+        }
+        if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
+            return null;
+        }
         return dao.islogin(vo);
     }
 
     @Override
     public int register(User vo) {
+        if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
+            return -1;
+        }
+        if (vo.getUsername()==null||vo.getUsername().equals("")){
+            return -1;
+        }
+        if (vo.getEmail()==null||vo.getEmail().equals("")){
+            return -1;
+        }
+        if (vo.getIdcard()==null||vo.getIdcard().equals("")){
+            return -1;
+        }
+        if (vo.getPhone()==null||vo.getPhone().equals("")){
+            return -1;
+        }
+        if (vo.getRealname()==null||vo.getRealname().equals("")){
+            return -1;
+        }
         return dao.register(vo);
     }
 
     @Override
     public User findById(Integer userid) {
+        if (userid==null){
+            return null;
+        }
         return dao.findById(userid);
     }
 
     @Override
     public int update(User vo) {
+        if (vo.getUserid()==null||vo.getUserid().equals("")){
+            return -1;
+        }
         return dao.update(vo);
     }
 }

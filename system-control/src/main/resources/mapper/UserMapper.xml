@@ -16,6 +16,78 @@
         <id column="info2" property="info2"/>
     </resultMap>
 
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="username!=null and username!=''">
+                username,
+            </if>
+            <if test="userpwd!=null and userpwd!=''">
+                userpwd,
+            </if>
+            <if test="realname!=null and realname!=''">
+                realname,
+            </if>
+            <if test="idcard!=null and idcard!=''">
+                idcard,
+            </if>
+            <if test="phone!=null and phone!=''">
+                phone,
+            </if>
+            <if test="email!=null and email!=''">
+                email,
+            </if>
+            <if test="info1!=null and info1!=''">
+                info1,
+            </if>
+            <if test="info2!=null and info2!=''">
+                info2,
+            </if>
+            <if test="type!=null and type!=''">
+                type,
+            </if>
+        </trim>
+          logintime
+    </sql>
+    
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="userpwd != null and userpwd != ''">
+                userpwd = #{userpwd},
+            </if>
+            <if test="realname != null and realname != ''">
+                realname = #{realname},
+            </if>
+            <if test="idcard != null and idcard != ''">
+                idcard = #{idcard},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="logintime != null">
+                logintime = #{logintime},
+            </if>
+            <if test="info1 != null and info1 != ''">
+                info1 = #{info1},
+            </if>
+            <if test="info2 != null and info2 != ''">
+                info2 = #{info2},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{info2},
+            </if>
+        </trim>
+        now()
+    </sql>
+
     <!-- 登录 -->
     <select id="islogin" resultMap="BaseResultMap" parameterType="User" >
         select
@@ -24,8 +96,8 @@
     </select>
     <!-- 注册 -->
     <insert id="register" parameterType="User" keyProperty="userid" useGeneratedKeys="true">
-        insert into bank.user(username, userpwd, realname, idcard, phone, email, type, logintime)
-        values (#{username}, #{userpwd}, #{realname}, #{idcard}, #{phone}, #{email}, #{type}, now())
+        insert into bank.user(<include refid="key"></include>)
+        values (<include refid="value"></include>)
     </insert>
     <!--查询单个-->
     <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">

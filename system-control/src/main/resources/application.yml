@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: student-service #服务名称
+    name: system-control #服务名称
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
     driver-class-name: org.gjt.mm.mysql.Driver

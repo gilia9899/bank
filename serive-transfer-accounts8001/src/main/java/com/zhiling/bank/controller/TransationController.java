@@ -6,6 +6,7 @@ import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.service.AccountService;
 import com.zhiling.bank.service.IntraBankTransferService;
 import com.zhiling.bank.service.TransationService;
+import com.zhiling.bank.tool.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,7 @@ public class TransationController {
      * @param request
      * @return
      */
-    @PostMapping("intraBankTransfer")
+    @GetMapping("intraBankTransfer")
     public CommonResult intraBankTransfer(HttpServletRequest request){
         int userid = Integer.parseInt(request.getParameter("userid"));
         String phone = request.getParameter("phone");
@@ -64,19 +65,29 @@ public class TransationController {
         int outer = Integer.parseInt(request.getParameter("outer"));
         double money = Double.parseDouble(request.getParameter("money"));
 
+
         CommonResult commonResult = new CommonResult();
+        Account checkBalance = accountService.queryById(outer);
+        if(Double.parseDouble(checkBalance.getBalance()) < money){
+            commonResult.setCode(2);
+            commonResult.setMessage("余额不足");
+            return commonResult;
+        }
 
         //查询目标用户，若用户不存在，则返回错误
         Account account = accountService.queryById(inner);
-        if(account == null || "中国银行".equals(account.getBank())){
+        System.out.println(account);
+        if(account == null || !"中国银行".equals(account.getBank())){
             commonResult.setCode(2);
             commonResult.setMessage("没找到该用户");
             return commonResult;
         }
+
         Transation transation = new Transation();
-        //主键另有算法
-        String code = "code";
+        //添加主键
+        String code = OrderUtil.getOrderNoByUUID("");
         transation.setCode(code);
+
         transation.setUserid(userid);
         transation.setAccno(outer);
         transation.setTargetno(inner);

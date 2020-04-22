@@ -34,6 +34,17 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <!--<scope>provided</scope> 注意，这个scope需要被注释掉-->
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+
         <!-- jsp标签库 -->
         <dependency>
             <groupId>javax.servlet</groupId>

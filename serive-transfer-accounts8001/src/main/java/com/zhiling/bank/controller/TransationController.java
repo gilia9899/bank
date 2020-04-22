@@ -50,21 +50,14 @@ public class TransationController {
 
     /**
      * 行内转账
-     * @param request
+     * @param transation
+     * @param inner
+     * @param outer
+     * @param money
      * @return
      */
-    @GetMapping("intraBankTransfer")
-    public CommonResult intraBankTransfer(HttpServletRequest request){
-        int userid = Integer.parseInt(request.getParameter("userid"));
-        String phone = request.getParameter("phone");
-        String type = request.getParameter("type");
-        String risk = request.getParameter("risk");
-        String massage= request.getParameter("massage");
-
-        int inner = Integer.parseInt(request.getParameter("inner"));
-        int outer = Integer.parseInt(request.getParameter("outer"));
-        double money = Double.parseDouble(request.getParameter("money"));
-
+    @PostMapping("intraBankTransfer")
+    public CommonResult intraBankTransfer(@RequestBody Transation transation, @RequestParam("inner") Integer inner, @RequestParam("outer") Integer outer, @RequestParam("money") Double money){
 
         CommonResult commonResult = new CommonResult();
         Account checkBalance = accountService.queryById(outer);
@@ -82,21 +75,6 @@ public class TransationController {
             commonResult.setMessage("没找到该用户");
             return commonResult;
         }
-
-        Transation transation = new Transation();
-        //添加主键
-        String code = OrderUtil.getOrderNoByUUID("");
-        transation.setCode(code);
-
-        transation.setUserid(userid);
-        transation.setAccno(outer);
-        transation.setTargetno(inner);
-        transation.setPhone(phone);
-        transation.setCreatedate(new Date());
-        transation.setBalance(money+"");
-        transation.setType(type);
-        transation.setRisk(risk);
-        transation.setMessage(massage);
 
         //转账
         boolean isSuccess = intraBankTransferService.intraBankTransfer(transation,inner,outer,money);

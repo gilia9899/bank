@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiling.bank.dao.AccountDao">
+
+    <resultMap type="com.zhiling.bank.entity.Account" id="AccountMap">
+        <result property="accno" column="accno" jdbcType="INTEGER"/>
+        <result property="accpwd" column="accpwd" jdbcType="VARCHAR"/>
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="balance" column="balance" jdbcType="VARCHAR"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="bank" column="bank" jdbcType="VARCHAR"/>
+        <result property="info1" column="info1" jdbcType="VARCHAR"/>
+        <result property="info2" column="info2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AccountMap">
+        select
+          accno, accpwd, userid, balance, createDate, bank, info1, info2
+        from bank.account
+        where accno = #{accno}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AccountMap">
+        select
+          accno, accpwd, userid, balance, createDate, bank, info1, info2
+        from bank.account
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AccountMap">
+        select
+          accno, accpwd, userid, balance, createDate, bank, info1, info2
+        from bank.account
+        <where>
+            <if test="accno != null">
+                and accno = #{accno}
+            </if>
+            <if test="accpwd != null and accpwd != ''">
+                and accpwd = #{accpwd}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="balance != null and balance != ''">
+                and balance = #{balance}
+            </if>
+            <if test="createdate != null">
+                and createDate = #{createdate}
+            </if>
+            <if test="bank != null and bank != ''">
+                and bank = #{bank}
+            </if>
+            <if test="info1 != null and info1 != ''">
+                and info1 = #{info1}
+            </if>
+            <if test="info2 != null and info2 != ''">
+                and info2 = #{info2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="accno" useGeneratedKeys="true">
+        insert into bank.account(accpwd, userid, balance, createDate, bank, info1, info2)
+        values (#{accpwd}, #{userid}, #{balance}, #{createdate}, #{bank}, #{info1}, #{info2})
+    </insert>
+
+    <!--转入-->
+    <update id="inner" >
+        update account
+        set balance = balance + #{money}
+        where accno = #{inner}
+    </update>
+
+    <!--转出-->
+    <update id="outer">
+        update account
+        set balance = balance - #{money}
+        where accno = #{outer}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update bank.account
+        <set>
+            <if test="accpwd != null and accpwd != ''">
+                accpwd = #{accpwd},
+            </if>
+            <if test="userid != null">
+                userid = #{userid},
+            </if>
+            <if test="balance != null and balance != ''">
+                balance = #{balance},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate},
+            </if>
+            <if test="bank != null and bank != ''">
+                bank = #{bank},
+            </if>
+            <if test="info1 != null and info1 != ''">
+                info1 = #{info1},
+            </if>
+            <if test="info2 != null and info2 != ''">
+                info2 = #{info2},
+            </if>
+        </set>
+        where accno = #{accno}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from bank.account where accno = #{accno}
+    </delete>
+
+</mapper>

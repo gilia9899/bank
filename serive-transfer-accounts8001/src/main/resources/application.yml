@@ -3,6 +3,16 @@ server:
 spring:
   application:
     name: ShopServer
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/bank?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: root
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zhiling.bank.entity       #所有Entity别名类所在包
 
 eureka:
   instance:

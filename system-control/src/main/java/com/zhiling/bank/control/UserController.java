@@ -26,7 +26,7 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/user/islogin")
+    @PostMapping(value = "/user/islogin")
     public CommonResult islogin(User vo) {
         User u = uservice.islogin(vo);
         if (u == null) {

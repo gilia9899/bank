@@ -1,19 +1,11 @@
 package com.zhiling.bank.dao;
 
 import com.zhiling.bank.entity.User;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 
-@Mapper
-public interface UserDAO {
+@Repository
+public interface UserDAO extends Mapper<User> {
 
-    User islogin(User vo);
-
-    int register(User vo);
-
-    User findById(Integer userid);
-
-    int update(User vo);
-
-    int updateLoginDate(User vo);
 
 }

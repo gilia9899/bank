@@ -7,6 +7,7 @@ import com.zhiling.bank.tool.Md5UUIDSaltUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -23,12 +24,12 @@ public class UserServiceImpl implements UserService {
         if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
             return null;
         }
-        User u = dao.islogin(vo);
+        User u = dao.selectOne(vo);
         String salt = u.getInfo1();
         String password = vo.getUserpwd();
         String md5Code = Md5UUIDSaltUtil.createMd5Code(password+salt);
         if (u.getUserpwd().equals(md5Code)){
-            dao.updateLoginDate(u);
+            this.updateLoginDate(u);
             return u;
         }else {
             return null;
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
         String password = Md5UUIDSaltUtil.createMd5Code(vo.getUserpwd()+salt);
         vo.setInfo1(salt);
         vo.setUserpwd(password);
-        return dao.register(vo);
+        return dao.insert(vo);
     }
 
     @Override
@@ -71,7 +72,9 @@ public class UserServiceImpl implements UserService {
         if (userid==null){
             return null;
         }
-        return dao.findById(userid);
+        User u = new User();
+        u.setUserid(userid);
+        return dao.selectOne(u);
     }
 
     @Override
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
         if (vo.getUserid()==null||vo.getUserid().equals("")){
             return -1;
         }
-        return dao.update(vo);
+        return dao.updateByPrimaryKey(vo);
     }
 
     @Override
@@ -87,6 +90,7 @@ public class UserServiceImpl implements UserService {
         if (vo.getUserid()==null|vo.getUserid().equals("")){
             return -1;
         }
-        return dao.updateLoginDate(vo);
+        vo.setLogintime(new Date());
+        return dao.updateByPrimaryKey(vo);
     }
 }

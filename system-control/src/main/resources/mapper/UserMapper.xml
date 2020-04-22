@@ -19,8 +19,8 @@
     <sql id="key">
         <trim suffixOverrides=",">
             <if test="username!=null and username!=''">
-                username,
-            </if>
+            username,
+        </if>
             <if test="userpwd!=null and userpwd!=''">
                 userpwd,
             </if>
@@ -82,11 +82,16 @@
                 info2 = #{info2},
             </if>
             <if test="type != null and type != ''">
-                type = #{info2},
+                type = #{type},
             </if>
         </trim>
         now()
     </sql>
+
+    <!-- 更新登录日期 -->
+    <update id="updateLoginDate" parameterType="User" useGeneratedKeys="true">
+        update user set logintime = now() where userid = #{userid}
+    </update>
 
     <!-- 登录 -->
     <select id="islogin" resultMap="BaseResultMap" parameterType="User" >

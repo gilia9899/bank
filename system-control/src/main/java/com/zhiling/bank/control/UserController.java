@@ -56,6 +56,7 @@ public class UserController {
         }
     }
 
+    @PostMapping(value = "/user/update")
     public CommonResult update(User vo) {
         int flag = uservice.update(vo);
         if (flag > 0) {

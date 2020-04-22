@@ -14,4 +14,6 @@ public interface UserDAO {
 
     int update(User vo);
 
+    int updateLoginDate(User vo);
+
 }

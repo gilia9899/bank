@@ -3,6 +3,7 @@ server:
 #默认端口号 访问时直接通过localhost访问
 spring:
   mvc:
+    static-path-pattern: /**
     view:
       suffix: .html
       prefix: /WEB-INF/html/
@@ -22,4 +23,4 @@ ribbon:
     enabled: true
 feign:
   hystrix:
-    enabled: true
+    enabled: false

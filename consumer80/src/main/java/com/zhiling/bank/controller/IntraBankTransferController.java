@@ -7,6 +7,7 @@ import com.zhiling.bank.serivce.IntraBankTransferServiceClint;
 import com.zhiling.bank.tool.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +25,9 @@ public class IntraBankTransferController {
     @Resource
     private IntraBankTransferServiceClint clint;
 
-    @GetMapping("intraBankTransfer")
+    @PostMapping("intraBankTransfer")
     public CommonResult intraBankTransfer(HttpServletRequest request){
+        System.out.println(request.getParameter("massage"));
         int userid = Integer.parseInt(request.getParameter("userid"));
         String phone = request.getParameter("phone");
         String type = request.getParameter("type");
@@ -35,8 +37,6 @@ public class IntraBankTransferController {
         int inner = Integer.parseInt(request.getParameter("inner"));
         int outer = Integer.parseInt(request.getParameter("outer"));
         double money = Double.parseDouble(request.getParameter("money"));
-
-
 
         Transation transation = new Transation();
         //添加主键

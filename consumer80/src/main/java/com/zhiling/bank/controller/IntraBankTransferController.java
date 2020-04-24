@@ -1,19 +1,18 @@
 package com.zhiling.bank.controller;
 
 import com.zhiling.bank.entity.Account;
+import com.zhiling.bank.entity.Address;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.serivce.IntraBankTransferServiceClint;
 import com.zhiling.bank.tool.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author LiZheng
@@ -56,5 +55,14 @@ public class IntraBankTransferController {
         return clint.intraBankTransfer(transation,inner,outer,money);
     }
 
+    @GetMapping("queryAccountByUserid/{userid}")
+    CommonResult<List<Account>> queryAccountByUserid(@PathVariable int userid){
+        System.out.println("所有卡");
+        return clint.queryAccountByUserid(userid);
+    }
 
+    @GetMapping("queryAddressByUserid/{userid}")
+    CommonResult<List<Address>> queryAddressByUserid(@PathVariable int userid){
+        return clint.queryAddressByUserid(userid);
+    }
 }

@@ -1,6 +1,42 @@
+$(function () {
+    setAccount(1001);
+})
 
-$)("#transfer_btn".click(function() {
-        console.log("ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + $("#transfer_form").serialize());
+
+function setAccount(userid){
+    $.ajax({
+        url: "transation/queryAccountByUserid/" + userid,
+        type:"get",
+        dataType:"json",
+        success:function(result)
+        {
+            console.log("»ñµÃÄÇÉ¶×Ó");
+            console.log(result);
+            var list = result.data;
+            var select = document.getElementById("select_account");
+            $.each(list,function (index,item) {
+                var opt = document.createElement("option");
+                opt.setAttribute("balance",item.balance);
+                opt.innerHTML = item.accno;
+                select.appendChild(opt);
+            })
+        }
+    });
+}
+
+function setBalance(){
+    var select = document.getElementById("select_account")
+    var value = select.options[select.selectedIndex].getAttribute("balance");
+    console.log(value);
+
+    $("#balance").val(value);
+}
+
+/**
+ * ×ªÕË
+ */
+$("#transfer_btn").click(function() {
+        console.log("ÎÒ½øÀ´ÁËÂð" + $("#transfer_form").serialize());
         $.ajax({
             url: "transation/intraBankTransfer",
             type:"post",

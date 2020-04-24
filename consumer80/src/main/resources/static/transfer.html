@@ -21,11 +21,6 @@
             <a href="index.html" class="logo">
                 某某银行
             </a>
-            <!-- 移动端用按钮 -->
-            <!--                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button> -->
         </div>
         <nav class="navbar navbar-header navbar-expand-lg">
 
@@ -54,9 +49,18 @@
                                         <span id="useridMsg" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label for="text">自己银行卡号</label>
-                                        <input type="text" class="form-control" name="outer" id="outer" >
-                                        <span id="outerMsg" class="text-danger"></span>
+                                        <label for="text">选择银行卡</label>
+                                        <select name="outer" id="select_account" onchange="setBalance()">
+                                            <option balance=""></option>
+                                        </select>
+<!--                                        <input type="text" class="form-control" name="outer" id="outer" >-->
+<!--                                        <span id="outerMsg" class="text-danger"></span>-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">余额</label>
+                                        <input type="text" class="form-control" name="balance" id="balance" readonly="readonly">
+                                        <!--                                        <input type="text" class="form-control" name="outer" id="outer" >-->
+                                        <!--                                        <span id="outerMsg" class="text-danger"></span>-->
                                     </div>
                                     <div class="form-group">
                                         <label for="text">目标账户</label>
@@ -70,7 +74,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="text">电话</label>
-                                        <input type="password" class="form-control" name="phone" id="phone">
+                                        <input type="text" class="form-control" name="phone" id="phone">
                                         <span id="phoneMsg" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">

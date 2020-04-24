@@ -31,6 +31,12 @@ public interface AccountDao {
      */
     List<Account> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
+    /**
+     * 按用户查询银行卡
+     * @param userid
+     * @return
+     */
+    List<Account> queryByUserid(int userid);
 
     /**
      * 通过实体作为筛选条件查询

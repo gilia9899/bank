@@ -3,6 +3,7 @@ package com.zhiling.bank.service;
 import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.Transation;
 import org.apache.ibatis.annotations.Param;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.List;
 
@@ -13,6 +14,13 @@ import java.util.List;
  * @since 2020-04-20 15:20:06
  */
 public interface AccountService {
+
+    /**
+     * 按用户查询银行卡
+     * @param userid
+     * @return
+     */
+    List<Account> queryByUserid(Integer userid);
 
     /**
      * 通过ID查询单条数据

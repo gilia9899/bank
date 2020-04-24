@@ -30,6 +30,11 @@ public class AddressServiceImpl implements AddressService {
         return this.addressDao.queryById(accno);
     }
 
+    @Override
+    public List<Address> queryByUserid(Integer userid) {
+        return addressDao.queryByUserid(userid);
+    }
+
     /**
      * 查询多条数据
      *

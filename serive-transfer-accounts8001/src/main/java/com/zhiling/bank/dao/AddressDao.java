@@ -23,6 +23,13 @@ public interface AddressDao {
     Address queryById(Integer accno);
 
     /**
+     * 通过用户id查询常用收款人
+     * @param userid
+     * @return
+     */
+    List<Address> queryByUserid(Integer userid);
+
+    /**
      * 查询指定行数据
      *
      * @param offset 查询起始位置

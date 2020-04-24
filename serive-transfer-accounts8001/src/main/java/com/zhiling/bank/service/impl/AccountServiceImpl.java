@@ -33,6 +33,11 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private DataSourceTransactionManager transactionManager;
 
+    @Override
+    public List<Account> queryByUserid(Integer userid) {
+        return accountDao.queryByUserid(userid);
+    }
+
     /**
      * 通过ID查询单条数据
      *

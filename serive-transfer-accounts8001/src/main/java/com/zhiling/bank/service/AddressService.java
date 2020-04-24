@@ -20,6 +20,13 @@ public interface AddressService {
     Address queryById(Integer accno);
 
     /**
+     * 通过ID查询单条数据
+     *
+     * @param userid 主键
+     * @return 实例对象
+     */
+    List<Address> queryByUserid(Integer userid);
+    /**
      * 查询多条数据
      *
      * @param offset 查询起始位置

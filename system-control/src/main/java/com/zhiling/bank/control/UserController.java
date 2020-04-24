@@ -4,10 +4,7 @@ import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -27,7 +24,7 @@ public class UserController {
 
 
     @PostMapping(value = "/user/islogin")
-    public CommonResult islogin(User vo) {
+    public CommonResult islogin(@RequestBody User vo) {
         User u = uservice.islogin(vo);
         if (u == null) {
             return new CommonResult(404, "登录失败", null);

@@ -1,6 +1,6 @@
 
-$("#transfer_btn").click(function() {
-        console.log("ÎÒ½øÀ´ÁËÂð" + $("#transfer_form").serialize());
+$)("#transfer_btn".click(function() {
+        console.log("ï¿½Ò½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + $("#transfer_form").serialize());
         $.ajax({
             url: "transation/intraBankTransfer",
             type:"post",

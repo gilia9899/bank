@@ -4,14 +4,15 @@ import com.zhiling.bank.dao.AccountDAO;
 import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.service.AccountService;
 import com.zhiling.bank.tool.Md5UUIDSaltUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
-    private AccountDAO adao;
+    @Resource
+    private AccountDAO accountDAO;
 
     public Account checkPWD(Account vo){
         //Example example=new Example(Account.class);
@@ -24,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
         if (vo.getAccpwd()==null||vo.getAccpwd().equals("")){
             return null;
         }
-        Account ac = adao.selectOne(vo);
+        Account ac = accountDAO.selectOne(vo);
 
         String salt = ac.getInfo1();
         String password = vo.getAccpwd();

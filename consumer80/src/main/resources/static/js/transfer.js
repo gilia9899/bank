@@ -1,8 +1,35 @@
 $(function () {
+    /**
+     * 设置兑换列表
+     */
+    $.ajax({
+        url: "transation/queryAll",
+        type:"get",
+        dataType:"json",
+        success:function(result)
+        {
+            var list = result;
+
+            var select = document.getElementById("select_change");
+            $.each(list,function (index,item) {
+                console.log(item);
+                var opt = document.createElement("option");
+                opt.setAttribute("rate",item.rate);
+                opt.innerHTML = item.local;
+                select.appendChild(opt);
+            })
+        }
+    });
+
+
+    $("#userid").val(1001);
     setAccount(1001);
 })
 
-
+/**
+ * 设置用户帐号列表
+ * @param userid
+ */
 function setAccount(userid){
     $.ajax({
         url: "transation/queryAccountByUserid/" + userid,
@@ -24,14 +51,42 @@ function setAccount(userid){
     });
 }
 
+/**
+ * 设置余额显示
+ */
 function setBalance(){
     var select = document.getElementById("select_account")
     var value = select.options[select.selectedIndex].getAttribute("balance");
-    console.log(value);
 
     $("#balance").val(value);
 }
 
+/**
+ * 设置汇率显示
+ */
+function setRate(){
+    var select = document.getElementById("select_change")
+    var value = select.options[select.selectedIndex].getAttribute("rate");
+    $("#rate").val(value);
+}
+
+/**
+ * 获得兑换前的金额
+ */
+function setMoney() {
+    var money = $("#money2").val() / $("#rate").val();
+    money = money.toFixed(2);
+    $("#money").val(money);
+}
+
+/**
+ * 获得兑换后的金额
+ */
+function setMoney2() {
+    var money2 = $("#money").val() * $("#rate").val();
+    money2 = money2.toFixed(2);
+    $("#money2").val(money2);
+}
 /**
  * 转账
  */
@@ -50,3 +105,4 @@ $("#transfer_btn").click(function() {
         });
     /* Act on the event */
 });
+

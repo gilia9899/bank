@@ -27,4 +27,7 @@ public interface UserServiceClint {
 
     @PostMapping(value = "/user/update")
     CommonResult update(@RequestBody User vo);
+
+    @GetMapping(value = "/user/getcode/{phone}")
+    CommonResult getCode(@PathVariable("phone") String phone);
 }

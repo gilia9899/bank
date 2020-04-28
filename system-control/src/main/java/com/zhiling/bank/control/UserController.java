@@ -3,13 +3,19 @@ package com.zhiling.bank.control;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.UserService;
+import com.zhiling.bank.tool.PhoneCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private RedisTemplate<Object,Object> template;
 
     @Resource
     private UserService uservice;
@@ -34,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/res")
-    public CommonResult register(User vo) {
+    public CommonResult register(@RequestBody User vo) {
         int flag = uservice.register(vo);
         if (flag > 0) {
             return new CommonResult(200, "注册成功", true);
@@ -54,12 +60,22 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/update")
-    public CommonResult update(User vo) {
+    public CommonResult update(@RequestBody User vo) {
         int flag = uservice.update(vo);
         if (flag > 0) {
             return new CommonResult(200, "操作成功", true);
         } else {
             return new CommonResult(404, "操作失败", false);
+        }
+    }
+
+    @GetMapping(value = "/user/getcode/{phone}")
+    public CommonResult getCode(@PathVariable("phone")String phone){
+        String flag = PhoneCode.getPhonemsg(phone);
+        if (flag.equals("true")){
+            return new CommonResult(200,"发送成功",template.opsForValue().get(phone));
+        }else {
+            return  new CommonResult(404,"发送失败");
         }
     }
 }

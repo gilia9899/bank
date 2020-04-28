@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
         String salt = u.getInfo1();
         String password = vo.getUserpwd();
         String md5Code = Md5UUIDSaltUtil.createMd5Code(password+salt);
+
         if (u.getUserpwd().equals(md5Code)){
             this.updateLoginDate(u);
             return u;

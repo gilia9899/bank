@@ -14,9 +14,6 @@ import javax.annotation.Resource;
 @RestController
 public class UserController {
 
-    @Autowired
-    private RedisTemplate<Object,Object> template;
-
     @Resource
     private UserService uservice;
 
@@ -73,7 +70,7 @@ public class UserController {
     public CommonResult getCode(@PathVariable("phone")String phone){
         String flag = PhoneCode.getPhonemsg(phone);
         if (flag.equals("true")){
-            return new CommonResult(200,"发送成功",template.opsForValue().get(phone));
+            return new CommonResult(200,"发送成功",PhoneCode.code);
         }else {
             return  new CommonResult(404,"发送失败");
         }

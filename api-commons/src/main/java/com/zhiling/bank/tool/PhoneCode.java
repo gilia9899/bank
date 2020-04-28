@@ -8,10 +8,14 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 
 public class PhoneCode {
-    private static String code;
+    public static String code;
+
+
 
     public static void main(String[] args) {
         String phone = "17688844198"; //此处可输入你的手机号码进行测试
@@ -86,6 +90,7 @@ public class PhoneCode {
             if (sendSmsResponse.getCode() != null
                     && sendSmsResponse.getCode().equals("OK")) {
                 // 请求成功
+
                 System.out.println("获取验证码成功！！！");
             } else {
                 //如果验证码出错，会输出错误码告诉你具体原因

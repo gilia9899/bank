@@ -6,6 +6,7 @@ import com.zhiling.bank.dao.AccountDao;
 import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -15,7 +16,9 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (Account)表服务实现类
@@ -27,15 +30,51 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Resource
     private AccountDao accountDao;
-    @Resource
-    private TransationDao transationDao;
 
-    @Autowired
-    private DataSourceTransactionManager transactionManager;
+    @Resource(name = "redisTemplate")
+    private RedisTemplate<String,Transation> redisTemplate;
 
     @Override
     public List<Account> queryByUserid(Integer userid) {
-        return accountDao.queryByUserid(userid);
+//        Transation t1 = new Transation();
+//        t1.setCode("1");
+//        Transation t2 = new Transation();
+//        t2.setCode("2");
+//        redisTemplate.opsForList().rightPush("test",t1);
+//        redisTemplate.opsForList().rightPush("test",t2);
+//        System.out.println("存入两个list");
+
+//        List<Transation> list = redisTemplate.opsForList().range("test",0,-1);
+//        for (Transation tt:
+//             list) {
+//            System.out.println("出现了：");
+//            System.out.println(tt.getCode());
+//        }
+
+
+        //获取该用户名下所有账户
+        List<Account> accounts = accountDao.queryByUserid(userid);
+        //从redis中查询所有记录
+        List<Transation> transations = redisTemplate.opsForList().range("AllTranstation",0,-1);
+
+        //当redis中存在改用户记录时，直接返回账户记录
+        if(transations == null){
+            return accounts;
+        }
+        //修改后的集合
+        List<Account> newAccounts = new ArrayList<>();
+        //判断记录中是否存在改用户账户的信息
+        for (Account a : accounts) {
+            for (Transation t: Objects.requireNonNull(transations)) {
+                //当记录账户和用户一样，则转账相减
+                if(a.getAccno().equals(t.getAccno())){
+                    String result = (Double.parseDouble(a.getBalance()) - Double.parseDouble(t.getBalance())) + "";
+                    a.setBalance(result);
+                }
+            }
+            newAccounts.add(a);
+        }
+        return newAccounts;
     }
 
     /**
@@ -72,33 +111,6 @@ public class AccountServiceImpl implements AccountService {
         this.accountDao.insert(account);
         return account;
     }
-
-    /**
-     * 行内转账用户余额变更
-     * @param inner
-     * @param outer
-     * @param money
-     *
-     */
-    @Override
-    @Transactional
-    public boolean intraBankTransfer(Transation transation,int inner, int outer, double money) {
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = transactionManager.getTransaction(def);
-        try {
-            //判断是否修改成功，成功则返回true，失败则回滚并返回false
-            accountDao.inner(inner,money);
-            accountDao.outer(outer,money);
-            transationDao.insert(transation);
-            return true;
-        }catch (Exception e){
-            transactionManager.rollback(status);
-            return false;
-        }
-    }
-
-
     /**
      * 通过主键删除数据
      *

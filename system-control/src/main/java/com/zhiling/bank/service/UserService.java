@@ -11,4 +11,6 @@ public interface UserService {
 
     int update(User vo);
 
+    int updateLoginDate(User vo);
+
 }

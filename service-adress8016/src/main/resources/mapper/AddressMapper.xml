@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiling.bank.dao.AddressDao">
+
+    <resultMap id="BaseResultMap" type="com.zhiling.bank.entity.Address">
+        <id column="accno" property="accno" />
+        <id column="userid" property="userid"/>
+        <id column="username" property="username"/>
+        <id column="info1" property="info1"/>
+        <id column="info2" property="info2"/>
+    </resultMap>
+
+    <select id="listAddress"  resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        accno,userid,username
+        from address
+        order by accno
+        limit #{start},#{pageSize}
+    </select>
+
+
+    <select id="getCount"  resultType="java.lang.Integer">
+    select
+    count(accno)
+    from address
+   </select>
+
+
+    <insert id="addAddress" parameterType="com.zhiling.bank.entity.Address" >
+    insert into  address (
+    accno,userid,username)
+    values (#{accno}, #{userid}, #{username})
+  </insert>
+
+    <select id="getUseridByAccno"  resultType="java.lang.Integer" parameterType="com.zhiling.bank.entity.Account">
+    select userid
+    from account
+    where accno= #{accno,jdbcType=INTEGER}
+   </select>
+
+
+    <delete id="dropAddressByAccno" parameterType="com.zhiling.bank.entity.Address" >
+        delete from address
+        where
+        accno=#{accno,jdbcType=INTEGER}
+
+    </delete>
+
+</mapper>

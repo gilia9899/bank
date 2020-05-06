@@ -15,13 +15,34 @@ public class Transation implements Serializable {
     private String code;
     
     private Integer userid;
-    
+    private String fromname;
+
     private Integer accno;
     
     private Integer targetno;
-    
+
+    private String toname;
+
+    public String getFromname() {
+        return fromname;
+    }
+
+    public void setFromname(String fromname) {
+        this.fromname = fromname;
+    }
+
+    public String getToname() {
+        return toname;
+    }
+
+    public void setToname(String toname) {
+        this.toname = toname;
+    }
+
+
+
     private String phone;
-    
+
     private Date createdate;
     
     private Date targetdate;

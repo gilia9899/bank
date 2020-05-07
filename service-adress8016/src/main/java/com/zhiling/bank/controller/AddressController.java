@@ -30,7 +30,7 @@ public class AddressController {
 
 
     @ResponseBody
-    @RequestMapping(value = "listAddress",method = RequestMethod.POST)
+    @RequestMapping(value = "listAddress",method = RequestMethod.GET)
     public PageBean<Address> listAddress(String currentPage, String pagesize){
 
         //当前页码
@@ -62,7 +62,7 @@ public class AddressController {
         addressPageBean.setPageSize(pageSize);
         addressPageBean.setTotalPage(totalPage);
         addressPageBean.setObjList(addressList);
-
+        System.out.println("listAddress返回之前");
         return addressPageBean;
 
     }

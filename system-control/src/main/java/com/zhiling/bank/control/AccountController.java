@@ -2,9 +2,7 @@ package com.zhiling.bank.control;
 
 import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.CommonResult;
-import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.AccountService;
-import com.zhiling.bank.tool.Md5UUIDSaltUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

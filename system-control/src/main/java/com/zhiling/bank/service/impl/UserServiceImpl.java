@@ -1,14 +1,15 @@
 package com.zhiling.bank.service.impl;
 
 import com.zhiling.bank.dao.UserDAO;
+import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.UserService;
 import com.zhiling.bank.tool.Md5UUIDSaltUtil;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,16 +19,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User islogin(User vo) {
+        //System.out.println("服务提供者的获取："+vo.getUsername());
+        //System.out.println("服务提供者的获取："+vo.getUserpwd());
         if (vo.getUsername()==null||vo.getUsername().equals("")){
             return null;
         }
         if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
             return null;
         }
-        User u = dao.selectOne(vo);
+        Example example=new Example(User.class);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("username",vo.getUsername());
+        User u = dao.selectOneByExample(example);
         String salt = u.getInfo1();
         String password = vo.getUserpwd();
         String md5Code = Md5UUIDSaltUtil.createMd5Code(password+salt);
+
         if (u.getUserpwd().equals(md5Code)){
             this.updateLoginDate(u);
             return u;

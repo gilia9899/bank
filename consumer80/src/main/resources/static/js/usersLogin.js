@@ -24,30 +24,31 @@
 		{
 			console.log("我进来了吗" + $("#login_form").serialize());
 			$.ajax({
-				url: "http://localhost:8080/BackstageMusic/managerLogin",
-				type:"get",
+				url: "http://localhost/user/islogin",
+				type:"post",
 				dataType:"json",
 				data:$("#login_form").serialize(),
-				success:function(result)
+				success:function(CommonResult)
 				{
-/*					console.log(result);
+/*
 					console.log("backstageIndex.html?user_name=" +  result.extend.managerLogin.user_name
 											+ "&role_id=" + result.extend.managerLogin.role_id);*/
-					if(result.code == 1)
+					console.log(CommonResult);
+					if(CommonResult.code == 200)
 					{
 /*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
 						document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
-						$.cookie("user_name",result.extend.managerLogin.user_name);
-						$.cookie("role_id",result.extend.managerLogin.role_id);
+						$.cookie("user_name",CommonResult.data.username);
+						$.cookie("role_id",CommonResult.data.userid);
  						window.location.href="backstageIndex.html";
 					}
-					else if(result.code == 2)
+					else if(CommonResult.code == 404)
 					{
-						alert(result.msg);
+						alert(CommonResult.message);
 					}
 					else
 					{
-						alert(result.msg);
+						alert(CommonResult.message);
 					}
 
 				}

@@ -7,5 +7,4 @@ import tk.mybatis.mapper.common.Mapper;
 @Repository
 public interface UserDAO extends Mapper<User> {
 
-
 }

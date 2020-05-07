@@ -6,10 +6,10 @@ import com.zhiling.bank.service.UserService;
 import com.zhiling.bank.tool.PhoneCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @RestController
 public class UserController {
@@ -38,7 +38,10 @@ public class UserController {
 
     @PostMapping(value = "/user/res")
     public CommonResult register(@RequestBody User vo) {
+        vo.setType("0");
+        vo.setLogintime(new Date());
         int flag = uservice.register(vo);
+        System.out.println(vo.getRealname());
         if (flag > 0) {
             return new CommonResult(200, "注册成功", true);
         } else {

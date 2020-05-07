@@ -2,7 +2,7 @@
  *
  */
 
-	$("#login_btn").click(function() {
+	$("#res_btn").click(function() {
 		var checkId = true;
 		var checkPwd = true;
 		if($("#manager").val() == "")
@@ -22,12 +22,12 @@
 		}
 		else
 		{
-			console.log("我进来了吗" + $("#login_form").serialize());
+			console.log("我进来了吗" + $("#res_form").serialize());
 			$.ajax({
-				url: "http://localhost/user/islogin",
+				url: "http://localhost/user/res",
 				type:"post",
 				dataType:"json",
-				data : $("#login_form").serialize(),
+				data : $("#res_form").serialize(),
 				success:function(CommonResult)
 				{
 /*
@@ -38,11 +38,7 @@
 					{
 /*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
 						document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
-						$.cookie("user_name",CommonResult.data.username);
-						$.cookie("role_id",CommonResult.data.userid);
-						$.cookie("loginTime",CommonResult.data.logintime);
-						$.cookie("realname",CommonResult.data.realname);
- 						window.location.href="index.html";
+ 						window.location.href="login.html";
 					}
 					else if(CommonResult.code == 404)
 					{

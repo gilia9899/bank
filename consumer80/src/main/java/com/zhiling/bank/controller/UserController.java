@@ -5,7 +5,6 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.serivce.UserServiceClint;
-import com.zhiling.bank.tool.PhoneCode;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,14 +22,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/islogin")
-    public CommonResult islogin(@RequestBody User vo) {
-
-        //System.out.println("消费者的获取："+vo.getUsername());
+    public CommonResult islogin(User vo) {
         return clint.islogin(vo);
     }
 
     @PostMapping(value = "/user/res")
-    public CommonResult register(@RequestBody User vo) {
+    public CommonResult register(User vo) {
+        System.out.println(vo.getRealname());
+        System.out.println(vo.getUsername());
+        System.out.println(vo.getUserpwd());
         return clint.register(vo);
     }
 

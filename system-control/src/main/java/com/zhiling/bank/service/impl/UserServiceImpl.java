@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int register(User vo) {
-        /*if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
+        if (vo.getUserpwd()==null||vo.getUserpwd().equals("")){
             return -1;
         }
         if (vo.getUsername()==null||vo.getUsername().equals("")){
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         }
         if (vo.getType()==null||vo.getType().equals("")){
             vo.setType("0");
-        }*/
+        }
 
         String salt = Md5UUIDSaltUtil.getSalt();
         String password = Md5UUIDSaltUtil.createMd5Code(vo.getUserpwd()+salt);

@@ -1,6 +1,16 @@
 /**
  *
  */
+	var checkCode = true;
+	$("#code").blur(function () {
+
+		if ($(this).val()==$.cookie("code")){
+			var checkCode = true;
+		}else {
+			var checkCode = false;
+		}
+	})
+
 
 	$("#res_btn").click(function() {
 		var checkId = true;
@@ -19,6 +29,9 @@
 		{
 			alert("账号或密码为空");
 
+		}
+		if (checkCode == false){
+			alert("验证码错误");
 		}
 		else
 		{
@@ -56,6 +69,41 @@
 		}
 		/* Act on the event */
 	});
+
+$("#getCode_btn").click(function(phone) {
+
+		console.log("我进来了吗" + $("#phone").serialize());
+		$.ajax({
+			url: "http://localhost/user/getcode/"+phone,
+			type:"get",
+			dataType:"json",
+			success:function(CommonResult)
+			{
+				/*
+                                    console.log("backstageIndex.html?user_name=" +  result.extend.managerLogin.user_name
+                                                            + "&role_id=" + result.extend.managerLogin.role_id);*/
+
+				if(CommonResult.code == 200)
+				{
+					/*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
+                                            document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
+					$.cookie("code",CommonResult.data)
+					console.log(CommonResult.data);
+				}
+				else if(CommonResult.code == 404)
+				{
+					alert(CommonResult.message);
+				}
+				else
+				{
+					alert(CommonResult.message);
+				}
+
+			}
+		});
+
+	/* Act on the event */
+});
 
 
 /*	check = function()

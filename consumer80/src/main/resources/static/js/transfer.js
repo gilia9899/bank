@@ -21,9 +21,11 @@ $(function () {
         }
     });
 
+    var id =  $.cookie("role_id");
 
-    $("#userid").val(1001);
-    setAccount(1001);
+    console.log(id);
+    $("#userid").val(id);
+    setAccount(id);
 })
 
 /**

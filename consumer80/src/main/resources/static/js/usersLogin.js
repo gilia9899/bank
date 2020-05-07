@@ -27,7 +27,7 @@
 				url: "http://localhost/user/islogin",
 				type:"post",
 				dataType:"json",
-				data:$("#login_form").serialize(),
+				data : $("#login_form").serialize(),
 				success:function(CommonResult)
 				{
 /*
@@ -40,7 +40,9 @@
 						document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
 						$.cookie("user_name",CommonResult.data.username);
 						$.cookie("role_id",CommonResult.data.userid);
- 						window.location.href="backstageIndex.html";
+						$.cookie("loginTime",CommonResult.data.logintime);
+						$.cookie("realname",CommonResult.data.realname);
+ 						window.location.href="index.html";
 					}
 					else if(CommonResult.code == 404)
 					{

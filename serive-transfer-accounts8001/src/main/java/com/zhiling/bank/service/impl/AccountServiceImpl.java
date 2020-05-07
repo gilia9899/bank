@@ -32,42 +32,26 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Resource(name = "redisTemplate")
-    private RedisTemplate<String,Transation> redisTemplate;
+    private RedisTemplate<String, Transation> redisTemplate;
 
     @Override
     public List<Account> queryByUserid(Integer userid) {
-//        Transation t1 = new Transation();
-//        t1.setCode("1");
-//        Transation t2 = new Transation();
-//        t2.setCode("2");
-//        redisTemplate.opsForList().rightPush("test",t1);
-//        redisTemplate.opsForList().rightPush("test",t2);
-//        System.out.println("存入两个list");
-
-//        List<Transation> list = redisTemplate.opsForList().range("test",0,-1);
-//        for (Transation tt:
-//             list) {
-//            System.out.println("出现了：");
-//            System.out.println(tt.getCode());
-//        }
-
-
         //获取该用户名下所有账户
         List<Account> accounts = accountDao.queryByUserid(userid);
         //从redis中查询所有记录
-        List<Transation> transations = redisTemplate.opsForList().range("AllTranstation",0,-1);
+        List<Transation> transations = redisTemplate.opsForList().range("AllTranstation", 0, -1);
 
         //当redis中存在改用户记录时，直接返回账户记录
-        if(transations == null){
+        if (transations == null) {
             return accounts;
         }
         //修改后的集合
         List<Account> newAccounts = new ArrayList<>();
         //判断记录中是否存在改用户账户的信息
         for (Account a : accounts) {
-            for (Transation t: Objects.requireNonNull(transations)) {
+            for (Transation t : Objects.requireNonNull(transations)) {
                 //当记录账户和用户一样，则转账相减
-                if(a.getAccno().equals(t.getAccno())){
+                if (a.getAccno().equals(t.getAccno())) {
                     String result = (Double.parseDouble(a.getBalance()) - Double.parseDouble(t.getBalance())) + "";
                     a.setBalance(result);
                 }
@@ -85,14 +69,30 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public Account queryById(Integer accno) {
-        return this.accountDao.queryById(accno);
+        Account accounts = accountDao.queryById(accno);
+        //从redis中查询所有记录
+        List<Transation> transations = redisTemplate.opsForList().range("AllTranstation", 0, -1);
+
+        //当redis中存在改用户记录时，直接返回账户记录
+        if (transations == null) {
+            return accounts;
+        }
+        //判断记录中是否存在改用户账户的信息
+        for (Transation t : Objects.requireNonNull(transations)) {
+            //当记录账户和用户一样，则转账相减
+            if (accounts.getAccno().equals(t.getAccno())) {
+                String result = (Double.parseDouble(accounts.getBalance()) - Double.parseDouble(t.getBalance())) + "";
+                accounts.setBalance(result);
+            }
+        }
+        return accounts;
     }
 
     /**
      * 查询多条数据
      *
      * @param offset 查询起始位置
-     * @param limit 查询条数
+     * @param limit  查询条数
      * @return 对象列表
      */
     @Override
@@ -111,6 +111,7 @@ public class AccountServiceImpl implements AccountService {
         this.accountDao.insert(account);
         return account;
     }
+
     /**
      * 通过主键删除数据
      *

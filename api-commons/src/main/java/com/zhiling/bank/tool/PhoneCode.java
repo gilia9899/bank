@@ -8,8 +8,6 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 
 
 public class PhoneCode {
@@ -20,7 +18,6 @@ public class PhoneCode {
     public static void main(String[] args) {
         String phone = "17688844198"; //此处可输入你的手机号码进行测试
         getPhonemsg(phone);
-
     }
 
     /**

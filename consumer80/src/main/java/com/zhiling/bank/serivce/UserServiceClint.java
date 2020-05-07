@@ -2,6 +2,7 @@ package com.zhiling.bank.serivce;
 
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
+import com.zhiling.bank.serivce.impl.UserServiceClintImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
-@FeignClient(value = "SYSTEM-CONTROL")
+@FeignClient(value = "SYSTEM-CONTROL" ,fallback = UserServiceClintImpl.class)
 public interface UserServiceClint {
 
     @GetMapping(value = "/user/test/{name}")

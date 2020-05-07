@@ -1,6 +1,7 @@
 package com.zhiling.bank.service.impl;
 
 import com.zhiling.bank.dao.AccountDAO;
+import com.zhiling.bank.dao.TransationDAO;
 import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.service.ClearingAccountsService;
@@ -19,6 +20,9 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
     @Resource
     private AccountDAO dao;
+
+    @Resource
+    private TransationDAO dao2;
 
 
 
@@ -68,6 +72,17 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
     @Override
     public List<Transation> sel(String key) {
-        return redisTemplate.opsForList().range(key,0,-1);
+
+        List<Transation> list2 = dao2.selectAll();
+        List<Transation> list1 = redisTemplate.opsForList().range(key,0,-1);
+        List<Transation> list = null;
+        for (Transation a :list2) {
+            list.add(a);
+        }
+        for (Transation b :list1) {
+            list.add(b);
+        }
+        return  list;
+
     }
 }

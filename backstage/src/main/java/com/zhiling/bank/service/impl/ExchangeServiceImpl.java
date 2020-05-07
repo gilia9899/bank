@@ -19,8 +19,10 @@ public class ExchangeServiceImpl implements ExchangeService {
         return dao.updateByPrimaryKey(vo);
     }
 
+
     @Override
     public List<Exchange> fandall() {
+
         return dao.selectAll();
     }
 

@@ -1,11 +1,12 @@
 package com.zhiling.bank.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.Exchange;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.ExchangeService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,14 +16,14 @@ public class ExchangeController {
     @Resource
     private ExchangeService exchangeService;
 
-    @PostMapping(value = "/fandall")
-    public CommonResult fandall() {
-        List<Exchange> e = exchangeService.fandall();
-        if (e != null) {
-            return new CommonResult(200, "查询成功", e);
-        } else {
-            return new CommonResult(404, "查询失败", null);
-        }
+    @RequestMapping(value = "/fandall/{pageNum}")
+    public CommonResult fandall(@PathVariable int pageNum,
+                                 @RequestParam(defaultValue = "10") int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        PageInfo pageInfo=new PageInfo(exchangeService.fandall());
+        CommonResult c = new CommonResult();
+        c.setData(pageInfo);
+        return  c;
     }
 
     @PostMapping(value = "/update")

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>某某银行</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="css/ready.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/BackstageIndex.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="main-header">
+        <div class="logo-header">
+            <a href="index.html" class="logo">
+                某某银行
+            </a>
+        </div>
+        <nav class="navbar navbar-header navbar-expand-lg">
+
+        </nav>
+    </div>
+    <!-- 左边分区选择 -->
+    <div class="sidebar">
+        <div class="scrollbar-inner sidebar-wrapper">
+            <ul class="nav">
+                <li href="transfer_1.html" class="nav-item active" id="1">
+                    <a  id="usersManager">
+                        <i class="la la-user"></i>
+                        <p>行内转账</p>
+                    </a>
+                </li>
+                <li href="transfer_2.html" class="nav-item" id="2">
+                    <a  class="musicManager">
+                        <i class="la la-music"></i>
+                        <p>跨行转账</p>
+                    </a>
+                </li>
+                <li href="transfer_3.html" class="nav-item" id="3">
+                    <a  class="musicManager">
+                        <i class="la la-music"></i>
+                        <p>跨国转账</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">跨国转账</div>
+                            </div>
+                            <div class="card-body">
+                                <form id="transfer_form">
+                                    <input type="hidden" class="form-control" name="userid" id="userid" >
+                                    <div class="form-group">
+                                        <label for="text">选择银行卡</label>
+                                        <select name="outer" id="select_account" onchange="setBalance()">
+                                            <option balance=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">余额</label>
+                                        <input type="text" class="form-control" name="balance" id="balance" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">目标账户</label>
+                                        <input type="text" class="form-control" name="inner" id="inner">
+                                        <span id="innerMsg" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">选择币种</label>
+                                        <select name="select_change" id="select_change" onchange="setRate()">
+                                            <option rate=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">汇率</label>
+                                        <input type="text" class="form-control" name="rate" id="rate" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">转账金额(兑换前)</label>
+                                        <input type="text" class="form-control" name="money" id="money" onfocusout="setMoney2()">
+                                        <span id="moneyMsg" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">转账金额(兑换后)</label>
+                                        <input type="text" class="form-control" name="money2" id="money2" onfocusout="setMoney()">
+                                        <span id="money2Msg" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">电话</label>
+                                        <input type="text" class="form-control" name="phone" id="phone">
+                                        <span id="phoneMsg" class="text-danger"></span>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="type" id="type" value="跨国转账">
+                                    <div class="form-group">
+                                        <label for="text">备注信息</label>
+                                        <input type="text" class="form-control" name="massage" id="massage">
+                                        <span id="massageMsg" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">密码</label>
+                                        <input type="password" class="form-control" name="pwd" id="pwd">
+                                        <span id="pwdMsg" class="text-danger"></span>
+                                    </div>
+                                </form>
+                                <div class="card-action">
+                                    <button type="button" id="transfer_btn" class="btn btn-success">转账</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/core/jquery.3.2.1.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
+<script src="js/plugin/chartist/chartist.min.js"></script>
+<script src="js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+<!-- <script sets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script> -->
+<script src="js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+<script src="js/plugin/chart-circle/circles.min.js"></script>
+<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="js/ready.min.js"></script>
+<script src="js/transfer.js"></script>
+
+</html>

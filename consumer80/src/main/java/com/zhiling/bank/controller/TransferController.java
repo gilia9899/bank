@@ -1,12 +1,8 @@
 package com.zhiling.bank.controller;
 
-import com.zhiling.bank.entity.Account;
-import com.zhiling.bank.entity.Address;
-import com.zhiling.bank.entity.CommonResult;
-import com.zhiling.bank.entity.Transation;
-import com.zhiling.bank.serivce.IntraBankTransferServiceClint;
+import com.zhiling.bank.entity.*;
+import com.zhiling.bank.serivce.TransferServiceClint;
 import com.zhiling.bank.tool.OrderUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,9 +16,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("transation")
-public class IntraBankTransferController {
+public class TransferController {
     @Resource
-    private IntraBankTransferServiceClint clint;
+    private TransferServiceClint clint;
 
     @PostMapping("intraBankTransfer")
     public CommonResult intraBankTransfer(HttpServletRequest request){
@@ -30,12 +26,16 @@ public class IntraBankTransferController {
         int userid = Integer.parseInt(request.getParameter("userid"));
         String phone = request.getParameter("phone");
         String type = request.getParameter("type");
-        String risk = request.getParameter("risk");
         String massage= request.getParameter("massage");
+        String pwd = request.getParameter("pwd");
+        System.out.println("消费者pwd");
 
         int inner = Integer.parseInt(request.getParameter("inner"));
         int outer = Integer.parseInt(request.getParameter("outer"));
         double money = Double.parseDouble(request.getParameter("money"));
+
+        String info1 = request.getParameter("select_change");
+        String info2 = request.getParameter("rate");
 
         Transation transation = new Transation();
         //添加主键
@@ -49,11 +49,13 @@ public class IntraBankTransferController {
         transation.setCreatedate(new Date());
         transation.setBalance(money+"");
         transation.setType(type);
-        transation.setRisk(risk);
         transation.setMessage(massage);
+        transation.setInfo1(info1);
+        transation.setInfo1(info2);
 
-        return clint.intraBankTransfer(transation,inner,outer,money);
+        return clint.intraBankTransfer(transation,pwd,inner,outer,money);
     }
+
 
     @GetMapping("queryAccountByUserid/{userid}")
     CommonResult<List<Account>> queryAccountByUserid(@PathVariable int userid){
@@ -64,5 +66,10 @@ public class IntraBankTransferController {
     @GetMapping("queryAddressByUserid/{userid}")
     CommonResult<List<Address>> queryAddressByUserid(@PathVariable int userid){
         return clint.queryAddressByUserid(userid);
+    }
+
+    @GetMapping("queryAll")
+    List<Exchange> queryAll(){
+        return clint.queryAll();
     }
 }

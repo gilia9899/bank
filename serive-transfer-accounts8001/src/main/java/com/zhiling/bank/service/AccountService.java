@@ -46,17 +46,6 @@ public interface AccountService {
      * @return 实例对象
      */
     Account insert(Account account);
-
-    /**
-     * 行内转账
-     * @param inner
-     * @param outer
-     * @param transation
-     * @param money
-     * @return
-     */
-    boolean intraBankTransfer(Transation transation, int inner, int outer, double money);
-
     /**
      * 通过主键删除数据
      *

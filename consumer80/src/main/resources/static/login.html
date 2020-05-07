@@ -31,9 +31,23 @@
 
             </nav>
         </div>
+        <!-- 左边分区选择 -->
         <div class="sidebar">
             <div class="scrollbar-inner sidebar-wrapper">
-
+                <ul class="nav">
+                    <li herf="#" class="nav-item active" id="usersli">
+                        <a  id="usersManager">
+                            <i class="la la-user"></i>
+                            <p>用户管理</p>
+                        </a>
+                    </li>
+                    <li herf="#" class="nav-item" id="musicli">
+                        <a  class="musicManager">
+                            <i class="la la-music"></i>
+                            <p>歌曲管理</p>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="main-panel">
@@ -50,12 +64,12 @@
                                     <form id="login_form">
                                         <div class="form-group">
                                             <label for="text">账号</label>
-                                            <input type="text" class="form-control" name="user_phone" id="manager" placeholder="请输入账号">
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="请输入账号">
                                             <span id="managerMsg" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">密码</label>
-                                            <input type="password" class="form-control" name="user_password" id="password"
+                                            <input type="password" class="form-control" name="userpwd" id="userpwd"
                                             placeholder="请输入密码" >
                                             <span id="passwordMsg" class="text-danger"></span>
                                         </div>

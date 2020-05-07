@@ -10,9 +10,7 @@ public interface OffBankTransferService {
     /**
      * 行外转账
      * @param transation
-     * @param outer
-     * @param money
      * @return
      */
-    boolean OffBankTransfer(Transation transation,int outer, double money);
+    boolean offBankTransfer(Transation transation);
 }

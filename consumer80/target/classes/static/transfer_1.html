@@ -26,9 +26,29 @@
 
         </nav>
     </div>
+    <!-- 左边分区选择 -->
     <div class="sidebar">
         <div class="scrollbar-inner sidebar-wrapper">
-
+            <ul class="nav">
+                <li href="transfer_1.html" class="nav-item active" id="1">
+                    <a  id="usersManager">
+                        <i class="la la-user"></i>
+                        <p>行内转账</p>
+                    </a>
+                </li>
+                <li href="transfer_2.html" class="nav-item" id="2">
+                    <a  class="musicManager">
+                        <i class="la la-music"></i>
+                        <p>跨行转账</p>
+                    </a>
+                </li>
+                <li href="transfer_3.html" class="nav-item" id="3">
+                    <a  class="musicManager">
+                        <i class="la la-music"></i>
+                        <p>跨国转账</p>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="main-panel">
@@ -39,28 +59,20 @@
                     <div class="col-md-6 ">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">转账</div>
+                                <div class="card-title">行内转账</div>
                             </div>
                             <div class="card-body">
                                 <form id="transfer_form">
-                                    <div class="form-group">
-                                        <label for="text">用户Id</label>
-                                        <input type="text" class="form-control" name="userid" id="userid" >
-                                        <span id="useridMsg" class="text-danger"></span>
-                                    </div>
+                                    <input type="hidden" class="form-control" name="userid" id="userid" >
                                     <div class="form-group">
                                         <label for="text">选择银行卡</label>
                                         <select name="outer" id="select_account" onchange="setBalance()">
                                             <option balance=""></option>
                                         </select>
-<!--                                        <input type="text" class="form-control" name="outer" id="outer" >-->
-<!--                                        <span id="outerMsg" class="text-danger"></span>-->
                                     </div>
                                     <div class="form-group">
                                         <label for="text">余额</label>
                                         <input type="text" class="form-control" name="balance" id="balance" readonly="readonly">
-                                        <!--                                        <input type="text" class="form-control" name="outer" id="outer" >-->
-                                        <!--                                        <span id="outerMsg" class="text-danger"></span>-->
                                     </div>
                                     <div class="form-group">
                                         <label for="text">目标账户</label>
@@ -77,20 +89,16 @@
                                         <input type="text" class="form-control" name="phone" id="phone">
                                         <span id="phoneMsg" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="text">转账类型</label>
-                                        <input type="text" class="form-control" name="type" id="type">
-                                        <span id="typeMsg" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="text">转账状态</label>
-                                        <input type="text" class="form-control" name="risk" id="risk">
-                                        <span id="riskMsg" class="text-danger"></span>
-                                    </div>
+                                    <input type="hidden" class="form-control" name="type" id="type" value="行内转账">
                                     <div class="form-group">
                                         <label for="text">备注信息</label>
                                         <input type="text" class="form-control" name="massage" id="massage">
                                         <span id="massageMsg" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">密码</label>
+                                        <input type="password" class="form-control" name="pwd" id="pwd">
+                                        <span id="pwdMsg" class="text-danger"></span>
                                     </div>
                                 </form>
                                 <div class="card-action">

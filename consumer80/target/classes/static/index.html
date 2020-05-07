@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-Type" content="multipart/form-data,charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>沙雕龟在线音乐后台</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="css/ready.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/BackstageIndex.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- 顶上白条 -->
+    <div class="main-header">
+        <!--左上角logo -->
+        <div class="logo-header">
+            <a href="index.html" class="logo">
+                沙雕龟在线音乐平台后台
+            </a>
+            <!-- 移动端用按钮 -->
+            <!-- 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button> -->
+        </div>
+        <nav class="navbar navbar-header navbar-expand-lg">
+            <div class="container-fluid">
+                <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                    <!-- 右上角管理员信息 -->
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle profile-pic " data-toggle="dropdown" href="#" aria-expanded="false">
+                            <span id="Name"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <a id="log_out" class="dropdown-item log_out"><i class="fa fa-power-off" ></i > 登出</a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- 左边分区选择 -->
+    <div class="sidebar">
+        <div class="scrollbar-inner sidebar-wrapper">
+            <ul class="nav">
+                <li herf="#" class="nav-item active" id="usersli">
+                    <a  id="usersManager">
+                        <i class="la la-user"></i>
+                        <p>用户管理</p>
+                    </a>
+                </li>
+                <li herf="#" class="nav-item" id="musicli">
+                    <a  class="musicManager">
+                        <i class="la la-music"></i>
+                        <p>歌曲管理</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 主界面 -->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div id="table_title"></div>
+                <!--  						 <h4 class="page-title"  id="card_users_head" ></h4> -->
+                <!-- <h4 class="page-title"  id="card_music_head">音乐管理</h4> -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- 卡片表格 -->
+                        <div class="card card-tasks">
+                            <div class="card-header ">
+                                <div id="selectOthers">
+
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <!-- 搜索功能 -->
+
+                                    <form class="navbar-left navbar-form nav-search mr-md-3" >
+                                        <div class="input-group" id="search">
+                                            <!-- 													<input type="text" placeholder="Search ..." class="form-control">
+                                            <div class="input-group-append" >
+                                                <a href="" id="search_btn">
+                                                    <span class="input-group-text">
+                                                        <i class="la la-search search-icon"></i>
+                                                    </span>
+                                                </a>
+                                            </div> -->
+                                        </div>
+                                    </form>
+                                    <div id="btn"></div>
+                                </div>
+                            </div>
+
+                            <div class="card-body  ">
+
+                                <div class="table-full-width">
+                                    <table class="table" id="mainTable">
+                                        <thead >
+                                        <!-- 													<tr>
+                                            <th>用户账号</th>
+                                            <th>用户昵称</th>
+                                            <th>用户权限等级</th>
+                                            <th class="text-right">
+                                            操作
+                                            </th>
+                                        </tr> -->
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- 翻页功能 -->
+                            <div class="card-footer ">
+                                <div id="pageMsg"></div>
+                                <p  id="pageInfo">
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="js/core/jquery.3.2.1.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="js/core/popper.min.js"></script>
+<script src="js/core/bootstrap.min.js"></script>
+<script src="js/plugin/chartist/chartist.min.js"></script>
+<script src="js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+<!-- <script sets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script> -->
+<script src="js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+<script src="js/plugin/chart-circle/circles.min.js"></script>
+<script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/ready.min.js"></script>
+
+</html>

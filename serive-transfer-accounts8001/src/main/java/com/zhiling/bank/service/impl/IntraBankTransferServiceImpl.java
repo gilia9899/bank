@@ -39,6 +39,7 @@ public class IntraBankTransferServiceImpl implements IntraBankTransferService {
             accountDao.inner(inner,money);
             accountDao.outer(outer,money);
             transationDao.insert(transation);
+            transactionManager.commit(status);
             return true;
         }catch (Exception e){
             transactionManager.rollback(status);

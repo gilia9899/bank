@@ -1,0 +1,56 @@
+/*
+* @Author: Marte
+* @Date:   2018-12-03 14:43:08
+* @Last Modified by:   Marte
+* @Last Modified time: 2018-12-03 16:11:27
+*/
+a:hover
+{
+    text-decoration: none;
+}
+.userMsgBtn
+{
+    float: left;
+    color:#000000;
+
+
+}
+#userMsgBtn:hover
+{
+    color:#000000;
+}
+.userBillBtn
+{
+    margin-left: 20px;
+    color: #D1D0D0;
+}
+#userBillBtn:hover
+{
+    color:#000000;
+}
+
+
+.btnChangeBlack
+{
+    color:#000000;
+}
+
+.btnChangeGray
+{
+    color: #D1D0D0;
+}
+
+.userBill
+{
+    display: none;
+}
+
+.cardNone
+{
+    display:none;
+}
+
+.cardBlock
+{
+    display: block;
+}

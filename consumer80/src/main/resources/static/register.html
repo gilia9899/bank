@@ -58,10 +58,10 @@
                             <div class="col-md-6 ">
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title">登录</div>
+                                        <div class="card-title">注册</div>
                                     </div>
                                     <div class="card-body">
-                                    <form id="login_form">
+                                    <form id="res_form">
                                         <div class="form-group">
                                             <label for="text">账号</label>
                                             <input type="text" class="form-control" name="username" id="username" placeholder="请输入账号">
@@ -73,9 +73,27 @@
                                             placeholder="请输入密码" >
                                             <span id="passwordMsg" class="text-danger"></span>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="text">真实姓名</label>
+                                            <input type="text" class="form-control" name="realname" id="realname"
+                                                   placeholder="请输入姓名" >
+                                            <span id="realnameMsg" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">电话号码</label>
+                                            <input type="text" class="form-control" name="phone" id="phone"
+                                                   placeholder="请输入密码" >
+                                            <span id="phoneMsg" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="text">e-mail</label>
+                                            <input type="text" class="form-control" name="email" id="email"
+                                                   placeholder="邮箱" >
+                                            <span id="mailMsg" class="text-danger"></span>
+                                        </div>
                                     </form>
                                         <div class="card-action">
-                                            <button type="button" id="login_btn" class="btn btn-success">登录</button>
+                                            <button type="button" id="res_btn" class="btn btn-success">登录</button>
                                         </div>
                                     </div>
                                 </div>
@@ -103,5 +121,5 @@
 <script src="js/plugin/chart-circle/circles.min.js"></script>
 <script src="js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <script src="js/ready.min.js"></script>
-<script src="js/usersLogin.js"></script>
+<script src="js/usersRes.js"></script>
 </html>

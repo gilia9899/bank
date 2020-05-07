@@ -6,10 +6,7 @@ import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.service.ClearingAccountsService;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -18,7 +15,7 @@ public class ClearingAccountsController {
     @Resource
     private ClearingAccountsService acservice;
 
-    @PostMapping(value = "/clear")
+    @GetMapping(value = "/clear")
     public CommonResult checkPWD(String key) {
         int flag = acservice.running(key);
         if (flag == 1) {
@@ -29,8 +26,8 @@ public class ClearingAccountsController {
     }
 
 
-    @RequestMapping("/manageMember")
-    public CommonResult manageMember(@RequestParam(defaultValue = "1") int pageNum,
+    @RequestMapping("/manageMember/{pageNum}")
+    public CommonResult manageMember(@PathVariable int pageNum,
                                @RequestParam(defaultValue = "10") int pageSize,
                                String key){
         PageHelper.startPage(pageNum,pageSize);

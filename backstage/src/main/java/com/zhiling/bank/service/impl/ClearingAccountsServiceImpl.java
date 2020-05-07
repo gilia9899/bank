@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 @Service
@@ -30,7 +31,7 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
     @Override
     public void read(String key) {
 
-        List<Transation> list = redisTemplate.opsForList().range(key,0,-1);
+        List<Transation> list = redisTemplate.opsForList().range("AllTranstation",0,-1);
         for (int i=0;i<list.size();i++){
             Integer acc = list.get(i).getAccno();
             Integer tar = list.get(i).getTargetno();
@@ -75,8 +76,8 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
     public List<Transation> sel(String key) {
 
         List<Transation> list2 = dao2.selectAll();
-        List<Transation> list1 = redisTemplate.opsForList().range(key,0,-1);
-        List<Transation> list = null;
+        List<Transation> list1 = redisTemplate.opsForList().range("AllTranstation",0,-1);
+        List<Transation> list = new ArrayList<>();
         for (Transation a :list2) {
             list.add(a);
         }

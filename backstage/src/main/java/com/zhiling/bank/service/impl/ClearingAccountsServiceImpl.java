@@ -6,11 +6,12 @@ import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.service.ClearingAccountsService;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Timer;
-
+@Service
 public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
 

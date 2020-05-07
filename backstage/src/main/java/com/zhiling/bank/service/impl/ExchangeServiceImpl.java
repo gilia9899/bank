@@ -4,10 +4,11 @@ import com.zhiling.bank.dao.ExchangeDao;
 import com.zhiling.bank.entity.Exchange;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.service.ExchangeService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Service
 public class ExchangeServiceImpl implements ExchangeService {
     @Resource
     private ExchangeDao dao;

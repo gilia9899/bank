@@ -20,7 +20,6 @@ public class PhoneCode {
     public static void main(String[] args) {
         String phone = "17688844198"; //此处可输入你的手机号码进行测试
         getPhonemsg(phone);
-
     }
 
     /**

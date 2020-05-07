@@ -1,5 +1,7 @@
 package com.zhiling.bank.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.serivce.UserServiceClint;
@@ -13,6 +15,7 @@ public class UserController {
 
     @Resource
     UserServiceClint clint;
+
 
     @GetMapping("/user/test/{name}")
     public CommonResult test(@PathVariable("name") String name) {

@@ -20,9 +20,9 @@ public class AddressController {
     private AddressServiceClint addressServiceClint;
 
     @RequestMapping(value = "listAddress",method = RequestMethod.GET)
-    public PageBean<Address> listAddress(String currentPage, String pagesize){
+    public PageBean<Address> listAddress(String currentPage, String pagesize,String userid){
         System.out.println("进入消费者listadress");
-        return addressServiceClint.listAddress(currentPage,pagesize);
+        return addressServiceClint.listAddress(currentPage,pagesize,userid);
     }
 
     @RequestMapping(value = "addAddress",method = RequestMethod.POST)

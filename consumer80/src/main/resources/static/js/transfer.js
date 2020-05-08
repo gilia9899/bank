@@ -22,7 +22,6 @@ $(function () {
     });
 
     var id =  $.cookie("role_id");
-
     console.log(id);
     $("#userid").val(id);
     setAccount(id);
@@ -93,7 +92,6 @@ function setMoney2() {
  * 转账
  */
 $("#transfer_btn").click(function() {
-        console.log("我进来了吗" + $("#transfer_form").serialize());
         $.ajax({
             url: "transation/intraBankTransfer",
             type:"post",

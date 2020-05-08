@@ -36,6 +36,7 @@
             where a.userid=s.userid) c
         where
         c.accno=n.targetno
+        and n.userid=#{userid}
         order by n.code
         limit #{start},#{pageSize}
     </select>

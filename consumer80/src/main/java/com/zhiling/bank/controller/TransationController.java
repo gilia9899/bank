@@ -21,8 +21,8 @@ public class TransationController {
     private TransationServiceClint transationServiceClint;
 
     @RequestMapping(value = "listTransations", method = RequestMethod.GET)
-    public PageBean<Transation> listTransations(String currentPage, String pagesize){
-        return transationServiceClint.listTransations(currentPage,pagesize);
+    public PageBean<Transation> listTransations(String currentPage, String pagesize,String userid){
+        return transationServiceClint.listTransations(currentPage,pagesize,userid);
     }
 
 

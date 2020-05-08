@@ -25,7 +25,7 @@ public class TransationController {
     }
 
     @RequestMapping(value = "listTransations", method = RequestMethod.GET)
-    public PageBean<Transation> listTransations(String currentPage, String pagesize){
+    public PageBean<Transation> listTransations(String currentPage, String pagesize,String userid){
         System.out.println("进入listTransations方法");
         //当前页码
         int currPage=1;
@@ -42,7 +42,8 @@ public class TransationController {
         Map<String,Object> map1=new HashMap<String,Object>();
         map1.put("start", (currPage-1)*pageSize);
         map1.put("pageSize", pageSize);
-
+        int uid = Integer.parseInt(userid);
+        map1.put("userid", uid);
         System.out.println("准备进入service的listTransation方法");
         List<Transation> tsList=transationService.listTransation(map1);
         System.out.println("准备进入service的getCount方法");

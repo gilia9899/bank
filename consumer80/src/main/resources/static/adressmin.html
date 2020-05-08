@@ -37,16 +37,18 @@
 
 <script>
     $(function(){
+        console.log("开始");
         var currPage;
         var pageSize;
         var count;
         var totalPage;
+        var userid = $.cookie("role_id");
 
              $.ajax({
                  url : "ac/listAddress",//请求地址
                  dataType : "json",//数据格式
                  type : "get",//请求方式
-                 data :{currentPage:'1',pagesize:'5'},
+                 data :{currentPage:'1',pagesize:'5',userid:userid},
                  //async : false,//是否异步请求
                  success : function(data) {   //如何发送成功
                   //console.log(data);

@@ -32,6 +32,19 @@ public class Account implements Serializable {
     
     private String info2;
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accno=" + accno +
+                ", accpwd='" + accpwd + '\'' +
+                ", userid=" + userid +
+                ", balance='" + balance + '\'' +
+                ", createdate=" + createdate +
+                ", bank='" + bank + '\'' +
+                ", info1='" + info1 + '\'' +
+                ", info2='" + info2 + '\'' +
+                '}';
+    }
 
     public Integer getAccno() {
         return accno;

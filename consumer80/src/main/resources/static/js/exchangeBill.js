@@ -5,7 +5,7 @@ $(function () {
     var a = $("#bill_search").val();
     currentPhone = a;
     queryBill(1);
-});
+})
 
 
         function queryBill(pn)

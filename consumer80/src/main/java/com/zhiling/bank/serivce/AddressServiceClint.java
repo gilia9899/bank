@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AddressServiceClint {
 
     @GetMapping("ac/listAddress")
-     PageBean<Address> listAddress(@RequestParam("currentPage") String currentPage,@RequestParam("pagesize")String pagesize);
+     PageBean<Address> listAddress(@RequestParam("currentPage") String currentPage,@RequestParam("pagesize")String pagesize,@RequestParam("userid")String userid);
 
 
     @PostMapping("ac/addAddress")

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="consumer80" />
+        <module name="backstage" />
+        <module name="service-weather8018" />
+        <module name="system-control" />
+        <module name="api-commons" />
+        <module name="eureka-server7001" />
+        <module name="service-transfer-accounts8001" />
+        <module name="service-transation8017" />
+        <module name="service-adress8016" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-commons" target="1.8" />
+      <module name="backstage" target="1.8" />
+      <module name="bank" target="1.8" />
+      <module name="consumer80" target="1.8" />
+      <module name="eureka-server7001" target="1.8" />
+      <module name="service-adress8016" target="1.8" />
+      <module name="service-transation8017" target="1.8" />
+      <module name="service-transfer-accounts8001" target="1.8" />
+      <module name="service-weather8018" target="1.8" />
+      <module name="system-control" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

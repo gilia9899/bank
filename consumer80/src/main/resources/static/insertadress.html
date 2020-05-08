@@ -36,12 +36,13 @@
         $("#btninset").click(function() {
             var accno=$("#accno").val();
             var username=$("#username").val();
+            //var  userid=$.cookie("role_id");
             //alert("accno:"+accno+"username"+username);
             $.ajax({
                 url : "ac/addAddress",//请求地址
                 dataType : "json",//数据格式
                 type : "post",//请求方式
-                data :{accno:accno,username:username},
+                data :{accno:accno,username:username,userid:'1001'},
                 //async : false,//是否异步请求
                 success : function(data) {   //如何发送成功
                     alert("新增成功")

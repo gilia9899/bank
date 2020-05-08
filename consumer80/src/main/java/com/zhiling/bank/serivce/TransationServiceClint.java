@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface TransationServiceClint {
 
     @GetMapping("tc/listTransations")
-    PageBean<Transation> listTransations(@RequestParam("currentPage") String currentPage,@RequestParam("pagesize") String pagesize);
+    PageBean<Transation> listTransations(@RequestParam("currentPage") String currentPage,@RequestParam("pagesize") String pagesize,@RequestParam("userid") String userid);
 
 
     @PostMapping("tc/getTransationByCode")

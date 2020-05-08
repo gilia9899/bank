@@ -19,6 +19,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> listAddress(Map map) {
+        System.out.println(map.get("userid"));
         return addressDao.listAddress(map);
     }
 

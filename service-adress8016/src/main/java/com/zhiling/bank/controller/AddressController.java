@@ -32,7 +32,7 @@ public class AddressController {
 
     @ResponseBody
     @RequestMapping(value = "listAddress",method = RequestMethod.GET)
-    public PageBean<Address> listAddress(String currentPage, String pagesize){
+    public PageBean<Address> listAddress(String currentPage, String pagesize,String userid){
         System.out.println("进入listadress服务");
         //当前页码
         int currPage=1;
@@ -49,7 +49,8 @@ public class AddressController {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("start", (currPage-1)*pageSize);
         map.put("pageSize", pageSize);
-
+        int uid=Integer.parseInt(userid);
+        map.put("userid", uid);
         List<Address> addressList=addressService.listAddress(map);
 
         //总记录数
@@ -72,18 +73,20 @@ public class AddressController {
     @RequestMapping(value = "addAddress",method = RequestMethod.POST)
     public void addAddress(@RequestBody Address address){
         System.out.println("进入新增后台服务");
-        int accno=address.getAccno();
-        Account account= new Account();
-        account.setAccno(accno);
-        Integer userId=addressService.getUseridByAccno(account);
-        if(userId!=null){
-            address.setUserid(userId);
+        //int accno=address.getAccno();
+
+        //Account account= new Account();
+        //account.setAccno(accno);
+
+        //Integer userId=addressService.getUseridByAccno(account);
+        //if(userId!=null){
+            //address.setUserid(userId);
             addressService.addAddress(address);
             System.out.println("新增成功");
-        }else {
-            System.out.println("没有这个卡号");
+        //}else {
+           // System.out.println("没有这个卡号");
 
-        }
+       // }
 
     }
 

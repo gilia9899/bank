@@ -1,17 +1,20 @@
 package com.zhiling.bank.service.impl;
 
-import com.zhiling.bank.dao.AccountDAO;
-import com.zhiling.bank.dao.TransationDAO;
-import com.zhiling.bank.entity.Account;
-import com.zhiling.bank.entity.Transation;
-import com.zhiling.bank.service.ClearingAccountsService;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+        import com.zhiling.bank.dao.AccountDAO;
+        import com.zhiling.bank.dao.TransationDAO;
+        import com.zhiling.bank.entity.Account;
+        import com.zhiling.bank.entity.Transation;
+        import com.zhiling.bank.service.ClearingAccountsService;
+        import org.springframework.data.redis.core.RedisTemplate;
+        import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
+        import javax.annotation.Resource;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.Timer;
+        import java.util.concurrent.ScheduledExecutorService;
+        import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 @Service
 public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
@@ -61,6 +64,7 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
     @Override
     public Integer running(String key) {
+//        ScheduledExecutorService s = new ScheduledThreadPoolExecutor(1);
         Timer timer = new Timer(true);
 
 

@@ -68,8 +68,4 @@ public class TransferController {
         return clint.queryAddressByUserid(userid);
     }
 
-    @GetMapping("queryAll")
-    List<Exchange> queryAll(){
-        return clint.queryAll();
-    }
 }

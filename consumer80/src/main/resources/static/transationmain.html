@@ -36,12 +36,12 @@
         var pageSize;
         var count;
         var totalPage;
-
+        var userid = $.cookie("role_id");
         $.ajax({
             url : "tc/listTransations",//请求地址
             dataType : "json",//数据格式
             type : "get",//请求方式
-            data :{currentPage:'1',pagesize:'5'},
+            data :{currentPage:'1',pagesize:'5',userid:userid},
             //async : false,//是否异步请求
             success : function(data) {   //如何发送成功
                 //console.log(data);

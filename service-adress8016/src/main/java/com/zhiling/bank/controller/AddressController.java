@@ -4,6 +4,7 @@ import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.entity.Address;
 import com.zhiling.bank.service.AddressService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +33,7 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "listAddress",method = RequestMethod.GET)
     public PageBean<Address> listAddress(String currentPage, String pagesize){
-
+        System.out.println("进入listadress服务");
         //当前页码
         int currPage=1;
         //每页显示条数
@@ -69,8 +70,8 @@ public class AddressController {
 
     @ResponseBody
     @RequestMapping(value = "addAddress",method = RequestMethod.POST)
-    public void addAddress(Address address){
-        System.out.println("进入新增后台");
+    public void addAddress(@RequestBody Address address){
+        System.out.println("进入新增后台服务");
         int accno=address.getAccno();
         Account account= new Account();
         account.setAccno(accno);
@@ -90,8 +91,11 @@ public class AddressController {
 
     @ResponseBody
     @RequestMapping(value = "dropAddress",method = RequestMethod.POST)
-    public void dropAddress(Address address){
+    public void dropAddress(@RequestBody Address address){
+        System.out.println("进入服务者dropAddress方法");
+        System.out.println("accno:"+address.getAccno());
         Integer result=addressService.dropAddressByAccno(address);
+        System.out.println("result:"+result);
         if (result>0){
             System.out.println("删除成功");
         }else {

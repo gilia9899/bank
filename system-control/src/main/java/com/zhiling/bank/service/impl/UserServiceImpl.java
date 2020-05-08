@@ -13,6 +13,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,17 +37,17 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("username", vo.getUsername());
-        User u = dao.selectOneByExample(example);
-        String salt = u.getInfo1();
-        String password = vo.getUserpwd();
-        String md5Code = Md5UUIDSaltUtil.createMd5Code(password + salt);
-
-        if (u.getUserpwd().equals(md5Code)) {
-            this.updateLoginDate(u);
-            return u;
-        } else {
-            return null;
+        List<User> all = dao.selectByExample(example);
+        for (User u : all){
+            String salt = u.getInfo1();
+            String password = vo.getUserpwd();
+            String md5Code = Md5UUIDSaltUtil.createMd5Code(password + salt);
+            if (u.getUserpwd().equals(md5Code)) {
+                this.updateLoginDate(u);
+                return u;
+            }
         }
+            return null;
     }
 
     @Override

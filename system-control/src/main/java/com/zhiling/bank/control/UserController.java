@@ -73,6 +73,7 @@ public class UserController {
     public CommonResult getCode(@PathVariable("phone")String phone){
         String flag = PhoneCode.getPhonemsg(phone);
         if (flag.equals("true")){
+            System.out.println("验证码："+PhoneCode.code);
             return new CommonResult(200,"发送成功",PhoneCode.code);
         }else {
             return  new CommonResult(404,"发送失败");

@@ -1,13 +1,17 @@
 /**
  *
  */
-	var checkCode = true;
+    var checkCode;
 	$("#code").blur(function () {
-
-		if ($(this).val()==$.cookie("code")){
-			var checkCode = true;
+        console.log($("#code").val());
+        console.log("cookie"+$.cookie("code"));
+		if ($("#code").val()===$.cookie("code")){
+		    console.log($.cookie("code"));
+            console.log("验证码正确");
+            checkCode = true;
 		}else {
-			var checkCode = false;
+            console.log("验证码错误");
+			checkCode = false;
 		}
 	})
 
@@ -74,7 +78,7 @@ $("#getCode_btn").click(function(phone) {
 
 		console.log("我进来了吗" + $("#phone").serialize());
 		$.ajax({
-			url: "http://localhost/user/getcode/"+phone,
+			url: "http://localhost/user/getcode/"+$("#phone").val(),
 			type:"get",
 			dataType:"json",
 			success:function(CommonResult)
@@ -87,7 +91,8 @@ $("#getCode_btn").click(function(phone) {
 				{
 					/*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
                                             document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
-					$.cookie("code",CommonResult.data)
+					$.cookie("code",CommonResult.data);
+					$("getCode_btn").attr("disabled",true);
 					console.log(CommonResult.data);
 				}
 				else if(CommonResult.code == 404)

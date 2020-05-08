@@ -1,7 +1,5 @@
 package com.zhiling.bank.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.User;
 import com.zhiling.bank.serivce.UserServiceClint;
@@ -41,6 +39,7 @@ public class UserController {
 
     @GetMapping(value = "/user/getcode/{phone}")
     public CommonResult getCode(@PathVariable("phone")String phone){
+        System.out.println("发送短信:"+phone);
         return clint.getCode(phone);
     }
 

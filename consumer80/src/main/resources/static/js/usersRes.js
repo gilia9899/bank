@@ -1,6 +1,20 @@
 /**
  *
  */
+    var checkCode;
+	$("#code").blur(function () {
+        console.log($("#code").val());
+        console.log("cookie"+$.cookie("code"));
+		if ($("#code").val()===$.cookie("code")){
+		    console.log($.cookie("code"));
+            console.log("验证码正确");
+            checkCode = true;
+		}else {
+            console.log("验证码错误");
+			checkCode = false;
+		}
+	})
+
 
 	$("#res_btn").click(function() {
 		var checkId = true;
@@ -19,6 +33,9 @@
 		{
 			alert("账号或密码为空");
 
+		}
+		if (checkCode == false){
+			alert("验证码错误");
 		}
 		else
 		{
@@ -56,6 +73,42 @@
 		}
 		/* Act on the event */
 	});
+
+$("#getCode_btn").click(function(phone) {
+
+		console.log("我进来了吗" + $("#phone").serialize());
+		$.ajax({
+			url: "http://localhost/user/getcode/"+$("#phone").val(),
+			type:"get",
+			dataType:"json",
+			success:function(CommonResult)
+			{
+				/*
+                                    console.log("backstageIndex.html?user_name=" +  result.extend.managerLogin.user_name
+                                                            + "&role_id=" + result.extend.managerLogin.role_id);*/
+
+				if(CommonResult.code == 200)
+				{
+					/*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
+                                            document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
+					$.cookie("code",CommonResult.data);
+					$("getCode_btn").attr("disabled",true);
+					console.log(CommonResult.data);
+				}
+				else if(CommonResult.code == 404)
+				{
+					alert(CommonResult.message);
+				}
+				else
+				{
+					alert(CommonResult.message);
+				}
+
+			}
+		});
+
+	/* Act on the event */
+});
 
 
 /*	check = function()

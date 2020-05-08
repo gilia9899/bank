@@ -28,9 +28,12 @@ public class PhoneCode {
      */
     public static String getPhonemsg(String mobile) {
 
+
         /**
          * 进行正则关系校验
          */
+        System.out.println("手机验证："
+         + mobile);
         System.out.println(mobile);
         if (mobile == null || mobile == "") {
             System.out.println("手机号为空");

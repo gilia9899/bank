@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="js/jquery-1.8.3.js" type="text/javascript" ></script>
+    <script src="layer/layer.js" type="text/javascript" ></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" ></script>
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+</head>
+<body>
+
+<h1><small>新增收款人：</small></h1>
+<form  id="insertform">
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">收款人卡号：</span>
+        <input type="text" class="form-control" id="accno" name="accno" aria-describedby="basic-addon3">
+    </div>
+    <br />
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon">收款人姓名：</span>
+        <input type="text" class="form-control" id="username" name="username" aria-describedby="basic-addon3">
+    </div>
+    <br />
+    <input type="hidden" id="userid" name="userid" />
+    <button type="button" class="btn btn-primary" id="btninset">新增</button>
+</form>
+
+
+
+<script>
+    $(function(){
+
+        $("#btninset").click(function() {
+            var accno=$("#accno").val();
+            var username=$("#username").val();
+            //alert("accno:"+accno+"username"+username);
+            $.ajax({
+                url : "ac/addAddress",//请求地址
+                dataType : "json",//数据格式
+                type : "post",//请求方式
+                data :{accno:accno,username:username},
+                //async : false,//是否异步请求
+                success : function(data) {   //如何发送成功
+                    alert("新增成功")
+                },
+            })
+        })
+
+
+    })
+
+</script>
+
+</body>
+</html>

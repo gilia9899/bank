@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiling.bank.dao.TransationDao">
+
+
+
+    <resultMap id="BaseResultMap" type="com.zhiling.bank.entity.Transation">
+        <id column="code" property="code" />
+        <id column="userid" property="userid"/>
+        <id column="accno" property="accno"/>
+        <id column="targetno" property="targetno"/>
+        <id column="phone" property="phone"/>
+        <id column="createDate" property="createdate"/>
+        <id column="targetDate" property="targetdate"/>
+        <id column="balance" property="balance"/>
+        <id column="type" property="type"/>
+        <id column="risk" property="risk"/>
+        <id column="message" property="message"/>
+        <id column="info1" property="info1"/>
+        <id column="info2" property="info2"/>
+    </resultMap>
+
+
+
+
+    <select id="listTransation" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select n.code,n.userid,n.targetno,n.realname as fromname,c.realname as toname,n.balance,n.createDate
+        from
+            (select t.code,t.userid, u.realname,t.targetno,t.balance,t.createDate
+            from transation t,user u
+            where
+            u.userid=t.userid) n,
+
+            (select s.realname ,a.accno
+             from account a,user s
+            where a.userid=s.userid) c
+        where
+        c.accno=n.targetno
+        order by n.code
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select
+        count(code)
+        from transation
+    </select>
+
+    <select id="getTransationByCode" resultType="com.zhiling.bank.entity.Transation" parameterType="java.lang.String">
+        select n.code,n.userid,n.realname as fromname,n.accno,n.targetno,c.realname as toname,n.phone,n.createDate,n.targetDate,n.balance,n.type,n.risk,n.message
+        from
+        (select t.code,t.userid,u.realname,t.accno,t.targetno,t.phone,t.createDate,t.targetDate,t.balance,t.type,t.risk,t.message
+        from transation t,user u
+        where
+        u.userid=t.userid) n,
+        (select s.realname ,a.accno
+         from account a,user s
+         where a.userid=s.userid) c
+        where c.accno=n.targetno
+        and
+        code= #{code}
+    </select>
+
+
+
+
+    <select id="getRealNameByUserId" resultType="java.lang.String"  parameterType="java.lang.Integer">
+         select realname from user where userid=#{userid}
+    </select>
+
+    <select id="getRealNameByTargetno" resultType="java.lang.String"  parameterType="java.lang.Integer">
+        select u.realname
+        from account a,user u
+        where a.userid=u.userid and
+        accno=#{targetno}
+    </select>
+
+
+
+
+</mapper>

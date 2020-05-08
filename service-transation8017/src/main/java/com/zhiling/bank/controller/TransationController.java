@@ -67,6 +67,7 @@ public class TransationController {
 
     @RequestMapping(value = "getTransationByCode", method = RequestMethod.POST)
     public Transation getTransationByCode(String code){
+        System.out.println("code:"+code);
         Transation transation=transationService.getTransationByCode(code);
         if (transation!=null){
             System.out.println("查询成功");

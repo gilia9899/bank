@@ -70,6 +70,7 @@ public class AddressController {
     @ResponseBody
     @RequestMapping(value = "addAddress",method = RequestMethod.POST)
     public void addAddress(Address address){
+        System.out.println("进入新增后台");
         int accno=address.getAccno();
         Account account= new Account();
         account.setAccno(accno);

@@ -2,68 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>adressmin</title>
+    <title>transationmain</title>
 
     <script src="js/jquery-1.8.3.js" type="text/javascript" ></script>
     <script src="layer/layer.js" type="text/javascript" ></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript" ></script>
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
 
-
-
-
 </head>
 <body>
-<h3 style="text-align: center;">收款人列表展示</h3>
-<h4 class="text-right"><div class="label label-info " id="add">新增</div> </h4>
+<h3 style="text-align: center;">交易记录列表展示</h3>
 <table class="table table-bordered" id="table_id_example">
-
     <thead>
         <tr >
+            <td>转账人</td>
             <td>收款人</td>
-            <td>收款卡号</td>
+            <td>交易金额</td>
+            <td>交易发起时间</td>
             <td>操作</td>
         </tr>
     </thead>
     <thead id="list"></thead>
-
 </table>
-
 
 <nav aria-label="Page navigation" id="mynav"></nav>
 
 
-
-
 <script>
+
+
     $(function(){
         var currPage;
         var pageSize;
         var count;
         var totalPage;
 
-             $.ajax({
-                 url : "ac/listAddress",//请求地址
-                 dataType : "json",//数据格式
-                 type : "get",//请求方式
-                 data :{currentPage:'1',pagesize:'5'},
-                 //async : false,//是否异步请求
-                 success : function(data) {   //如何发送成功
-                  //console.log(data);
-                  currPage=data.currPage;
-                  pageSize=data.pageSize;
-                  count=data.count;
-                  totalPage=data.totalPage;
-                  //alert("currPage"+currPage+"pageSize"+pageSize+"count"+count+"totalPage"+totalPage);
-                 var ls = data.objList;
-                 var html = "";
-                 $.each(ls,function (index,item) {
-                     html +='<tr><td>'+item.username+'</td><td>'+item.accno+'</td><td><input type="button" value="删除" class="del" accno="'+item.accno+'"/></td></tr>';
-                 })
-                     $("#list").append(html);
-                     te();
-                },
-         })
+        $.ajax({
+            url : "tc/listTransations",//请求地址
+            dataType : "json",//数据格式
+            type : "get",//请求方式
+            data :{currentPage:'1',pagesize:'5'},
+            //async : false,//是否异步请求
+            success : function(data) {   //如何发送成功
+                //console.log(data);
+                currPage=data.currPage;
+                pageSize=data.pageSize;
+                count=data.count;
+                totalPage=data.totalPage;
+                //alert("currPage"+currPage+"pageSize"+pageSize+"count"+count+"totalPage"+totalPage);
+                var ls = data.objList;
+                var html = "";
+                $.each(ls,function (index,item) {
+                    var date = new Date(item.createdate);
+                    //console.log("date:"+date)
+                    var cdate=formatDate(date)
+                    html +='<tr><td>'+item.fromname+'</td><td>'+item.toname+'</td><td>'+item.balance+'</td><td>'+cdate+'</td><td><input type="button" value="详情" class="transationinfo" code="'+item.code+'"/></td></tr>';
+
+                })
+                $("#list").append(html);
+                te();
+            },
+        })
 
         function te(){
             $("#mynav").empty();
@@ -97,45 +96,6 @@
             aaa.append(sy).append(qy).append(cp).append(xy).append(wy).appendTo("#mynav");
         }
 
-
-        $('#add').on('click', function(){
-            layer.open({
-                type: 2,
-                title: '新增收款人页面',
-                shadeClose: true,
-                shade: 0.8,
-                area: ['380px', '90%'],
-                content: 'insertadress.html' //iframe的url
-            });
-        });
-
-        $(document).on("click", ".del", function() {
-            var accno =$(this).attr("accno");
-            layer.confirm('确定删除此收款人？', {
-                btn: ['是','否'] //按钮
-            }, function(){
-                alert("accno"+accno);
-                $.ajax({
-                    url : "ac/dropAddress",//请求地址
-                    dataType : "json",//数据格式
-                    type : "post",//请求方式
-                    data :{accno:accno},
-                    //async : false,//是否异步请求
-                    success : function(data) {   //如何发送成功
-                        layer.msg('已删除', {icon: 1,time: 800});
-                        window.location.reload();//刷新页面
-                    },
-                })
-            }, function(){
-                layer.msg('已取消删除', {
-                    icon: 1,time: 800   //0.8s后自动关闭
-                    //time: 6000,
-                    /*btn: ['明白了', '知道了']*/
-                });
-            });
-        });
-
-
         function topage(nowpage){
             var allpage=totalPage;/* 拿到总页码 */
             if(parseInt(nowpage)<=0){
@@ -144,7 +104,7 @@
                 alert("已经是最后一页了");
             }else{
                 $.ajax({
-                    url : "ac/listAddress",//请求地址
+                    url : "tc/listTransations",//请求地址
                     dataType : "json",//数据格式
                     type : "get",//请求方式
                     data :{currentPage:nowpage,pagesize:'5'},
@@ -157,7 +117,10 @@
                         $("#list").empty();
                         var html = "";
                         $.each(ls,function (index,item) {
-                            html +='<tr><td>'+item.username+'</td><td>'+item.accno+'</td><td><input type="button" value="删除" class="del" accno="'+item.accno+'"/></td></tr>';
+                            var date = new Date(item.createdate);
+                            //console.log("date:"+date)
+                            var cdate=formatDate(date)
+                            html +='<tr><td>'+item.fromname+'</td><td>'+item.toname+'</td><td>'+item.balance+'</td><td>'+cdate+'</td><td><input type="button" value="详情" class="transationinfo" code="'+item.code+'"/></td></tr>';
                         })
                         $("#list").append(html);
                         te();
@@ -167,13 +130,37 @@
 
         }
 
+        function formatDate(date) {
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            var minute = date.getMinutes();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            var second= date.getSeconds();
+            second = minute < 10 ? (second) : second;
+            return y + '-' + m + '-' + d+' '+h+':'+minute+':'+ second;
+        };
+
+        $(document).on("click", ".transationinfo", function() {
+            var code = $(this).attr("code");
+            //alert("code"+code);
+            location="transationinfo.html";
+            //跳转页面传递code
+            localStorage.setItem("code",code);
+        })
+
+
+
+
 
 
 
     })
 
 </script>
-
 
 </body>
 </html>

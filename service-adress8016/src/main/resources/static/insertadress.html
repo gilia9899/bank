@@ -13,7 +13,7 @@
 <body>
 
 <h1><small>新增收款人：</small></h1>
-<form action="" method="post">
+<form  id="insertform">
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon3">收款人卡号：</span>
         <input type="text" class="form-control" id="accno" name="accno" aria-describedby="basic-addon3">
@@ -25,54 +25,34 @@
     </div>
     <br />
     <input type="hidden" id="userid" name="userid" />
-    <button type="button" class="btn btn-primary">新增</button>
+    <button type="button" class="btn btn-primary" id="btninset">新增</button>
 </form>
 
 
 
 <script>
-
     $(function(){
-        $('#accno').blur(function(){
+
+        $("#btninset").click(function() {
+            var accno=$("#accno").val();
+            var username=$("#username").val();
+            //alert("accno:"+accno+"username"+username);
             $.ajax({
-                /*请求方式*/
-                type: "post",
-                /*发送请求的地址*/
-                url: "test.json",
-                /*发送到服务器的数据。*/
-                data: {accno:$("#accno").val()},
-                /*data: {accno:$("#accno").val(), content:$("#content").val()},*/
-                /*预期服务器返回的数据类型*/
-                dataType: "json",
-                /*回调函数*/
-                success: function(data){
+                url : "ac/addAddress",//请求地址
+                dataType : "json",//数据格式
+                type : "post",//请求方式
+                data :{accno:accno,username:username},
+                //async : false,//是否异步请求
+                success : function(data) {   //如何发送成功
+                    alert("新增成功")
+                },
+            })
+        })
 
-                    /*$('#resText').empty();   //清空resText里面的所有内容
-                    var html = '';
-                    $.each(data, function(commentIndex, comment){
-                          html += '<div class="comment"><h6>' + comment['username']
-                                    + ':</h6><p class="para"' + comment['content']
-                                    + '</p></div>';
-                    });
-                    $('#resText').html(html);*/
-                    $('#userid').val(userid);
-                    layer.confirm('收款人为'+username, {
-                        btn: ['是','否'] //按钮
-                    }, function(){
-                        $('#username').val(username);
-                    }, function(){
-                        layer.msg('请确认卡号', {
-                            time: 5000, //5s后自动关闭
-                            //btn: ['明白了', '知道了']
-                        });
-                    });
 
-                }
-            });
-        });
     })
-</script>
 
+</script>
 
 </body>
 </html>

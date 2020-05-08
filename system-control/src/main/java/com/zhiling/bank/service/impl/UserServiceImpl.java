@@ -73,9 +73,11 @@ public class UserServiceImpl implements UserService {
             vo.setType("0");
         }
         //检测手机是否注册过
-        User checkU = new User();
-        checkU.setPhone(vo.getPhone());
-        if ((dao.selectOne(checkU)) != null) {
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("phone", vo.getPhone());
+        User checkU = dao.selectOneByExample(example);
+        if (checkU!=null) {
             return -1;
         }
 
@@ -85,9 +87,12 @@ public class UserServiceImpl implements UserService {
         vo.setInfo1(salt);
         vo.setUserpwd(password);
         int flag = dao.insert(vo);
+        System.out.println("flag:"+flag);
         if (flag > -1) {
             User u = dao.selectOne(vo);
             if (u != null) {
+                System.out.println("自动创建account");
+                System.out.println(u.getUserid());
                 Account ac = new Account();
                 ac.setBalance("500");
                 ac.setAccpwd(initialPWD);

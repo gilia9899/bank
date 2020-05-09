@@ -1,0 +1,38 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: showcards
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/bank?useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: gjw123
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp  redis:    host: 127.0.0.1
+    port: 8004
+    jedis:      pool:        max-idle: 8
+        min-idle: 1
+        max-active: 60
+        max-wait: 20
+    timeout: 20000
+      
+      
+    
+eureka:  instance:    hostname: localhost
+  client:    service-url:      defaultZone: http://localhost:7001/eureka/
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml 
+  
+logging:
+  level:
+    com.zhiling.bank.dao: debug
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+

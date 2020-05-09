@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiling.bank.dao.AcclogMapper">
+  <resultMap id="BaseResultMap" type="com.zhiling.bank.pojo.Acclog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="msgid" jdbcType="VARCHAR" property="msgid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="nextretrytime" jdbcType="TIMESTAMP" property="nextretrytime" />
+    <result column="retrycount" jdbcType="INTEGER" property="retrycount" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from acclog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiling.bank.pojo.Acclog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into acclog (msgid, createtime, nextretrytime, 
+      retrycount, status, updatetime
+      )
+    values (#{msgid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{nextretrytime,jdbcType=TIMESTAMP}, 
+      #{retrycount,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zhiling.bank.pojo.Acclog">
+    update acclog
+    set msgid = #{msgid,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      nextretrytime = #{nextretrytime,jdbcType=TIMESTAMP},
+      retrycount = #{retrycount,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, msgid, createtime, nextretrytime, retrycount, status, updatetime
+    from acclog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, msgid, createtime, nextretrytime, retrycount, status, updatetime
+    from acclog
+  </select>
+  
+  <insert id="batchinsert">
+  	insert into acclog (msgid, createtime, nextretrytime, retrycount, status, updatetime)
+  	<foreach collection="list" item="log" open=" values(" close=")" separator="),(">
+  		#{log.msgid},#{log.createtime},#{log.nextretrytime},#{log.retrycount},#{log.status},#{log.updatetime}
+  	</foreach> 
+  </insert>
+  
+  
+</mapper>

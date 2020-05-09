@@ -42,6 +42,7 @@
 						$.cookie("role_id",CommonResult.data.userid);
 						$.cookie("loginTime",CommonResult.data.logintime);
 						$.cookie("realname",CommonResult.data.realname);
+						$.cookie("phone",CommonResult.data.phone)
  						window.location.href="index.html";
 					}
 					else if(CommonResult.code == 404)

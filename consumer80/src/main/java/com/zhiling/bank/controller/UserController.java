@@ -32,6 +32,11 @@ public class UserController {
         return clint.register(vo);
     }
 
+    @PostMapping(value = "/user/update")
+    public CommonResult update(User vo){
+        return clint.update(vo);
+    }
+
     @GetMapping(value = "/user/find/{userid}")
     public CommonResult findById(@PathVariable("userid") Integer userid) {
         return clint.findById(userid);

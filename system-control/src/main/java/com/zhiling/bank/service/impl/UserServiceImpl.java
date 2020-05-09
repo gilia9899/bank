@@ -1,6 +1,7 @@
 package com.zhiling.bank.service.impl;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.zhiling.bank.dao.AccountDAO;
 import com.zhiling.bank.dao.UserDAO;
@@ -73,6 +74,10 @@ public class UserServiceImpl implements UserService {
         if (vo.getType() == null || "".equals(vo.getType())) {
             vo.setType("0");
         }
+        if(!IdcardUtil.isValidCard(vo.getIdcard())){
+            //身份证验证
+            return -1;
+        }
         //检测手机是否注册过
         Example example = new Example(User.class);
         Example.Criteria criteria = example.createCriteria();
@@ -111,6 +116,11 @@ public class UserServiceImpl implements UserService {
 
         }
         return 1;
+    }
+
+    public static void main(String[] args) {
+
+
     }
 
     @Override

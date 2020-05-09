@@ -37,6 +37,10 @@
 		if (checkCode == false){
 			alert("验证码错误");
 		}
+		var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		if(!reg.test($("#email"))){
+			alert("邮箱格式错误");
+		}
 		else
 		{
 			console.log("我进来了吗" + $("#res_form").serialize());
@@ -92,7 +96,7 @@ $("#getCode_btn").click(function(phone) {
 					/*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
                                             document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
 					$.cookie("code",CommonResult.data);
-					$("getCode_btn").attr("disabled",true);
+					$("#getCode_btn").attr("disabled",true);
 					console.log(CommonResult.data);
 				}
 				else if(CommonResult.code == 404)

@@ -7,79 +7,118 @@ var phone = document.getElementById("phone");
 var email = document.getElementById("email");*/
 /*var userID = document.getElementById("userID");*/
 
- /*编辑按钮点击事件*/
- $(document).on("click", ".edit_btn", function(){
-    getRole("#usersModal select");
-/*    console.log(this);
-    console.log($(this).attr("editid"));*/
-    //获取个人信息
-    getUsersMsg($(this).attr("editid"));
-    //把用户Id传递到更新按钮上
-    $("#user_update_btn").attr("ubid",$(this).attr("editid"));
-    $("#usersModal").modal({
-        backdrop:"static"
+
+
+var checkCode;
+var userid = $.cookie("role_id");
+var username = $.cookie("user_name");
+
+$(function () {
+    $("#userid").val(userid);
+    $("#username").val(username);
+})
+
+$("#code").blur(function () {
+    console.log($("#code").val());
+    console.log("cookie"+$.cookie("updatecode"));
+    if ($("#code").val()===$.cookie("updatecode")){
+        console.log("验证码正确");
+        checkCode = true;
+    }else {
+        console.log("验证码错误");
+        checkCode = false;
+    }
+});
+
+
+$("#getCode_btn").click(function() {
+
+    var phone = $.cookie("phone")
+    console.log("我进来了吗" + phone.serialize());
+    $.ajax({
+        url: "http://localhost/user/getcode/"+phone,
+        type:"get",
+        dataType:"json",
+        success:function(CommonResult)
+        {
+            /*
+                                console.log("backstageIndex.html?user_name=" +  result.extend.managerLogin.user_name
+                                                        + "&role_id=" + result.extend.managerLogin.role_id);*/
+
+            if(CommonResult.code == 200)
+            {
+                /*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
+                                        document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
+                $.cookie("updatecode",CommonResult.data);
+                $(this).attr('disabled',true);
+                console.log(CommonResult.data);
+            }
+            else if(CommonResult.code == 404)
+            {
+                alert(CommonResult.message);
+            }
+            else
+            {
+                alert(CommonResult.message);
+            }
+
+        }
     });
+
     /* Act on the event */
 });
 
 
- /*模态框获取权限选择器*/
- function getRole(select)
- {
-    $(select).empty();
-    console.log("我进来了");
-    $.ajax({
-        url: "http://localhost:8080/BackstageMusic/getRole",
-        type: "get",
-        dataType:"json",
-        success:function(result)
-        {
-                //$("#usersModal select").append('Some text')
-                $.each(result.extend.getRole, function(index, item) {
-                    var roleOption = $("<option></option>").append(item.role_name).attr("value", item.role_id);
-                    roleOption.appendTo(select);
-                    /* iterate through array or object*/
-                });
+$("#update_btn").click(function() {
+    var checkPwd = true;
+    var check = true;
+    if($("#userpwd").val() == "")
+    {
+        checkPwd = false;
+        alert("密码为空");
+    }
+    if ($("#userpwd") != $("#check")){
+        console.log("两次密码不一样")
+        check = false;
+        alert("两次密码不一致");
+    }
 
+    if (checkCode == false){
+        alert("验证码错误");
+    }
+    else
+    {
+        console.log("我进来了吗" + $("#update_form").serialize());
+        $.ajax({
+            url: "http://localhost/user/update",
+            type:"post",
+            dataType:"json",
+            data : $("#update_form").serialize(),
+            success:function(CommonResult)
+            {
+                /*
+                                    console.log("backstageIndex.html?user_name=" +  result.extend.managerLogin.user_name
+                                                            + "&role_id=" + result.extend.managerLogin.role_id);*/
+                console.log(CommonResult);
+                if(CommonResult.code == 200)
+                {
+                    /*						document.cookie = "user_name = " + result.extend.managerLogin.user_name;
+                                            document.cookie = "role_id" + result.extend.managerLogin.role_id;*/
+                    window.location.href="login.html";
                 }
-            });
-}
+                else if(CommonResult.code == 404)
+                {
+                    alert(CommonResult.message);
+                }
+                else
+                {
+                    alert(CommonResult.message);
+                }
 
-/*获取个人信息*/
-function getUsersMsg(id)
-{
-    $.ajax({
-        url: "http://localhost:8080/BackstageMusic/getOneUser/" + id,
-        type: "get",
-        dataType:"json",
-        success:function(result)
-        {
-            var userMsg = result.extend.getOneUser;
-            $("#userID").val(userMsg.user_id);
-            $("#userName").val(userMsg.user_name);
-            $("#phone").val(userMsg.user_phone);
-/*            console.log(userMsg);
-            console.log(userMsg.userInfo);*/
-            $("#email").val(userMsg.userInfo.infor_email);
-            $("#usersModal select").val([userMsg.role_id]);
-
-        }
-    });
-}
+            }
+        });
 
 
-//更新按钮
-$("#user_update_btn").click(function()
-{
-    $.ajax({
-        url: "http://localhost:8080/BackstageMusic/updateUser/" + $(this).attr("ubid"),
-        type: "put",
-        data:$("#usersModal form").serialize(),
-        dataType:"json",
-        success:function(result){
-            //alert (result.msg);
-            $("#usersModal").modal("hide");
-            usersSetAll(currentPage);
-        }
-    });
+    }
+    /* Act on the event */
 });

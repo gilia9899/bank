@@ -82,7 +82,6 @@ $("#update_btn").click(function() {
         check = false;
         alert("两次密码不一致");
     }
-
     if (checkCode == false){
         alert("验证码错误");
     }

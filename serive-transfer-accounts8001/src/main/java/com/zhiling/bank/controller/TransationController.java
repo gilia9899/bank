@@ -65,12 +65,12 @@ public class TransationController {
     public CommonResult intraBankTransfer(@RequestBody Transation transation,@RequestParam("pwd") String pwd, @RequestParam("inner") Integer inner, @RequestParam("outer") Integer outer, @RequestParam("money") Double money){
         CommonResult commonResult = new CommonResult();
         Account check = accountService.queryById(outer);
-//        //密码校验
-//        if(!this.checkPwd(outer,pwd)){
-//            commonResult.setCode(2);
-//            commonResult.setMessage("密码错误");
-//            return commonResult;
-//        }
+
+        if(!check.getAccpwd().equals(pwd)){
+            commonResult.setCode(2);
+            commonResult.setMessage("密码错误");
+            return commonResult;
+        }
 
         System.out.println("当前转账模式为：" + transation.getType());
         //余额校验

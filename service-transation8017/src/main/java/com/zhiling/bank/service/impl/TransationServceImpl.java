@@ -18,7 +18,6 @@ public class TransationServceImpl implements TransationService {
 
     @Override
     public List<Transation> listTransation(Map map) {
-
         return transationDao.listTransation(map);
     }
 
@@ -29,6 +28,7 @@ public class TransationServceImpl implements TransationService {
 
     @Override
     public Transation getTransationByCode(String code) {
+
         return transationDao.getTransationByCode(code);
     }
 

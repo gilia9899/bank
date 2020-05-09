@@ -51,7 +51,7 @@ public class TransferController {
         transation.setType(type);
         transation.setMessage(massage);
         transation.setInfo1(info1);
-        transation.setInfo1(info2);
+        transation.setInfo2(info2);
 
         return clint.intraBankTransfer(transation,pwd,inner,outer,money);
     }

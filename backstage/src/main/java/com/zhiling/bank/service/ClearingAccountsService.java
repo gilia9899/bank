@@ -9,7 +9,7 @@ public interface ClearingAccountsService {
 
     public void  read(String key);
 
-    public boolean clear(Integer a,Integer c);
+    public boolean clear(Integer a,Double c);
 
     public Integer running(String key);
 

@@ -73,8 +73,8 @@ $(function () {
         function bill_table(result)
         {
             $("#mainTable tbody").empty();
-            var t = result.extend.queryBill.list;
             console.log(result);
+            var t = result.data.list;
 
 
 
@@ -86,9 +86,9 @@ $(function () {
 
 
 
-                var bill_localnum = $("<td></td>").append(item.exchange.localnum);
-                var bill_local = $("<td></td>").append(item.exchange.local);
-                var bill_rate = $("<td></td>").append(item.exchange.rate);
+                var bill_localnum = $("<td></td>").append(item.localnum);
+                var bill_local = $("<td></td>").append(item.local);
+                var bill_rate = $("<td></td>").append(item.rate);
 
                 $("<tr></tr>").append(bill_localnum)
                 .append(bill_local)
@@ -102,12 +102,12 @@ $(function () {
         function bill_page_Msg(result)
         {
             $("#pageMsg").empty();
-            var tt=$("<div></div>").append("当前页码："+result.extend.queryBill.pageNum +"总共："
-                    + result.extend.queryBill.pages+
-                    "页,总记录数：" + result.extend.queryBill.total);
+            var tt=$("<div></div>").append("当前页码："+result.data.pageNum +"总共："
+                    + result.data.pages+
+                    "页,总记录数：" + result.data.total);
             $("#pageMsg").append(tt);
 
-            currentPage = result.extend.queryBill.pageNum;
+            currentPage = result.data.pageNum;
         }
 
         //分页条
@@ -121,7 +121,7 @@ $(function () {
             //前一页
             var qy=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("&laquo;")
                     .attr("href","#"));
-            if(result.extend.queryBill.hasPreviousPage == false)
+            if(result.data.hasPreviousPage == false)
                 {
                     sy.addClass("disabled");
                     qy.addClass("disabled");
@@ -135,7 +135,7 @@ $(function () {
                         });
                 qy.click(function()
                         {
-                            queryBill(currentPhone,result.extend.queryBill.pageNum -1);
+                            queryBill(currentPhone,result.data.pageNum -1);
                         });
                 }
 
@@ -149,7 +149,7 @@ $(function () {
 
 
 
-            if(result.extend.queryBill.hasNextPage == false)
+            if(result.data.hasNextPage == false)
                 {
                     hy.addClass("disabled");
                     wy.addClass("disabled");
@@ -158,20 +158,20 @@ $(function () {
                 {
                  wy.click(function()
                             {
-                                queryBill(currentPhone,result.extend.queryBill.pages);
+                                queryBill(currentPhone,result.data.pages);
                             });
                     hy.click(function()
                             {
-                                queryBill(currentPhone,result.extend.queryBill.pageNum +1);
+                                queryBill(currentPhone,result.data.pageNum +1);
                             });
                 }
 
             ull.append(sy).append(qy);
             //分页按钮
-            $.each(result.extend.queryBill.navigatepageNums,function(index,item){
+            $.each(result.data.navigatepageNums,function(index,item){
                  var ml = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append(item)
                             .attr("href","#"));
-                 if(result.extend.queryBill.pageNum == item)
+                 if(result.data.pageNum == item)
                      {
                         ml.addClass("active");
                      }

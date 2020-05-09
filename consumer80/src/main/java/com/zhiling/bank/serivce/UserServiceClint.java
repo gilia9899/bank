@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
-@FeignClient(value = "SYSTEM-CONTROL" ,fallback = UserServiceClintImpl.class)
+@FeignClient(value = "SYSTEM-CONTROL")
 public interface UserServiceClint {
 
     @GetMapping(value = "/user/test/{name}")

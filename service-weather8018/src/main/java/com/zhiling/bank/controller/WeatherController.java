@@ -1,6 +1,7 @@
 package com.zhiling.bank.controller;
 
 import cn.hutool.json.JSONObject;
+import com.zhiling.bank.entity.CommonResult;
 import com.zhiling.bank.entity.Lives;
 import com.zhiling.bank.entity.Location;
 import com.zhiling.bank.entity.Weather;
@@ -39,35 +40,19 @@ public class WeatherController {
     }
 
     @RequestMapping(value = "getWeatherByAdcode",method = RequestMethod.GET)
-    public Weather getWeatherByAdcode(){
+    public CommonResult getWeatherByAdcode(){
         LocationUtil locationUtil=new LocationUtil();
         Location location=locationUtil.getLocation();
         //获得一个城市编码
         String code=location.getAdcode();
+        System.out.println("城市编码："+code);
         WeatherUtil weatherUtil=new WeatherUtil();
         Weather wea=weatherUtil.getWeather(code);
-
-        /*String status=wea.getStatus();
-        String count=wea.getCount();
-        String info=wea.getInfo();
-        String infocode=wea.getInfocode();
-        List<Lives> livesList=wea.getLivesList();
-
-        for (Lives lives:livesList){
-            String province=lives.getProvince();            //省份名
-            String city=lives.getCity();                    //城市名
-            String adcode=lives.getAdcode();                //区域编码
-            String weather=lives.getWeather();              //天气现象（汉字描述）
-            String temperature=lives.getTemperature();      //实时气温，单位：摄氏度
-            String winddirection=lives.getWinddirection();  //风向描述
-            String windpower=lives.getWindpower();          //风力级别，单位：级
-            String humidity=lives.getHumidity();            //空气湿度
-            Date reporttime=lives.getReporttime();          //数据发布的时间
+        System.out.println("status:"+wea.getStatus());
 
 
-        }*/
-
-        return wea;
+        System.out.println("查询天气返回之前");
+        return new CommonResult(200,"成功",wea);
     }
 
 

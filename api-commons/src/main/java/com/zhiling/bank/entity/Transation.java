@@ -11,14 +11,13 @@ import java.io.Serializable;
  */
 public class Transation implements Serializable {
     private static final long serialVersionUID = 734713807019793771L;
-    
+
     private String code;
-    
+
     private Integer userid;
     private String fromname;
-
     private Integer accno;
-    
+
     private Integer targetno;
 
     private String toname;

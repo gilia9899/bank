@@ -1,13 +1,29 @@
 package com.zhiling.bank.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zhiling.bank.entity.CommonResult;
+import com.zhiling.bank.entity.Exchange;
+import com.zhiling.bank.entity.User;
+import com.zhiling.bank.serivce.ExchangeServiceClint;
+import com.zhiling.bank.serivce.UserServiceClint;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * @author LiZheng
- * @date 2020/5/8 16:24
- */
+import javax.annotation.Resource;
+
 @RestController
 public class ExchangeController {
+
+    @Resource
+    private ExchangeServiceClint clint;
+
+
+    @GetMapping (value = "/fandall/{pageNum}")
+    public CommonResult fandall(@PathVariable int pageNum){
+        return clint.fandall(pageNum);
+    }
+
+    @PostMapping(value = "/update")
+    public CommonResult update(Exchange vo){
+        return clint.update(vo);
+    };
 
 }

@@ -16,9 +16,9 @@ public class ExchangeController {
     @Resource
     private ExchangeService exchangeService;
 
-    @RequestMapping(value = "/fandall/{pageNum}")
-    public CommonResult fandall(@PathVariable int pageNum,
-                                 @RequestParam(defaultValue = "10") int pageSize){
+    @GetMapping(value = "/fandall/{pageNum}")
+    public CommonResult fandall(@PathVariable int pageNum){
+        int pageSize = 10;
         PageHelper.startPage(pageNum,pageSize);
         PageInfo pageInfo=new PageInfo(exchangeService.fandall());
         CommonResult c = new CommonResult();

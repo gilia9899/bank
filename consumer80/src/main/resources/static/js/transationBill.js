@@ -1,0 +1,202 @@
+/**
+ *
+ */
+$(function () {
+    var a = $("#bill_search").val();
+    currentPhone = a;
+    queryBill(1);
+});
+
+
+        function queryBill(pn)
+        {
+            console.log("随便");
+            $.ajax({
+                url:"/alltransation/1 " ,
+                dataType:"json",
+                success:function(result)
+                {
+
+                    bill_table(result);
+                    bill_page_Msg(result);
+                    bill_page_Info(result);
+
+
+
+                },
+                error:function(e)
+                {
+                    console.log("出错啦");
+                }
+            });
+
+        }
+
+
+
+//         function info_or_bill2()
+//         {
+// /*                                                  <span id="base_info">基本信息</span>&nbsp;
+//                                         <span id="users_bill">账单查询</span>*/
+//             $("#selectOthers").empty();
+//             console.log("我进入了查询切换");
+//             var info = $("<a href='#'>基本信息&nbsp;</a>").addClass("btnChangeBlack btnChangeGray base_info btn:hover");
+//             var bill = $("<a  href='#'>账单查询</a>").addClass("btnChangeBlack btnChangeGray users_bill btn:hover");
+//             $(info).removeClass("btnChangeBlack");
+//             $(bill).removeClass("btnChangeGray");
+//             $("#selectOthers").append(info).append(bill);
+//
+//
+//         }
+
+
+//表头
+//         function bill_table_head()
+//         {
+//             $("#mainTable thead").empty();
+//
+//             var bill_user_phone = $("<th>用户账号</th>");//user_phone
+//             var bill_user_name = $("<th>用户昵称</th>"); //user_name
+//             var bill_price_money = $("<th>支付金额</th>");//price_money
+//             var bill_bill_time = $("<th>支付时间</th>");//bill_time
+//
+//             $("<tr></tr>").append(bill_user_phone)
+//             .append(bill_user_name)
+//             .append(bill_price_money)
+//             .append(bill_bill_time)
+//             .appendTo("#mainTable thead");
+//
+//         }
+
+
+        /*表单*/
+        function bill_table(result)
+        {
+            $("#mainTable tbody").empty();
+            var t = result.data.list;
+            console.log(result);
+
+
+
+
+            $.each(t,function(index,item){
+                // var billT = parseInt(item.bill_time);
+                    //实例化一个新的日期格式，使用1970 年 1 月 1 日至今的毫秒数为参数
+                // var payDate = new Date(billT);
+
+
+
+                var code = $("<td></td>").append(item.code);
+                var userid = $("<td></td>").append(item.userid);
+                var accno = $("<td></td>").append(item.accno);
+                var targetno = $("<td></td>").append(item.targetno);
+                var phone = $("<td></td>").append(item.phone);
+                var createdate = $("<td></td>").append(item.createdate);
+                var targetdate = $("<td></td>").append(item.targetdate);
+                var balance = $("<td></td>").append(item.balance);
+                var type = $("<td></td>").append(item.type);
+                var risk = $("<td></td>").append(item.risk);
+                var message = $("<td></td>").append(item.message);
+
+
+                $("<tr></tr>").append(code)
+                .append(userid)
+                .append(accno)
+                .append(targetno)
+                .append(phone)
+                .append(createdate)
+                .append(targetdate)
+                .append(balance)
+                .append(type)
+                .append(risk)
+                .append(message)
+                .appendTo("#mainTable tbody");
+            });
+        }
+
+
+//分页信息
+function bill_page_Msg(result)
+{
+    $("#pageMsg").empty();
+    var tt=$("<div></div>").append("当前页码："+result.data.pageNum +"总共："
+        + result.data.pages+
+        "页,总记录数：" + result.data.total);
+    $("#pageMsg").append(tt);
+
+    currentPage = result.data.pageNum;
+}
+
+//分页条
+function bill_page_Info(result)
+{
+    $("#pageInfo").empty();
+    var ull = $("<ul></ul>").addClass("pagination pg-primary");
+    //首页
+    var sy=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("首页")
+        .attr("href","#"));
+    //前一页
+    var qy=$("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("&laquo;")
+        .attr("href","#"));
+    if(result.data.hasPreviousPage == false)
+    {
+        sy.addClass("disabled");
+        qy.addClass("disabled");
+    }
+    else
+    {
+        //翻页
+        sy.click(function()
+        {
+            queryBill(currentPhone,1);
+        });
+        qy.click(function()
+        {
+            queryBill(currentPhone,result.data.pageNum -1);
+        });
+    }
+
+    //后一页
+    var hy = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("&raquo;")
+        .attr("href","#"));
+
+    //尾页
+    var wy = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append("尾页")
+        .attr("href","#"));
+
+
+
+    if(result.data.hasNextPage == false)
+    {
+        hy.addClass("disabled");
+        wy.addClass("disabled");
+    }
+    else
+    {
+        wy.click(function()
+        {
+            queryBill(currentPhone,result.data.pages);
+        });
+        hy.click(function()
+        {
+            queryBill(currentPhone,result.data.pageNum +1);
+        });
+    }
+
+    ull.append(sy).append(qy);
+    //分页按钮
+    $.each(result.data.navigatepageNums,function(index,item){
+        var ml = $("<li></li>").addClass("page-item").append($("<a></a>").addClass("page-link").append(item)
+            .attr("href","#"));
+        if(result.data.pageNum == item)
+        {
+            ml.addClass("active");
+        }
+        ml.click(function(){
+            queryBill(currentPhone,item);
+        });
+        ull.append(ml);
+    })
+    ull.append(hy).append(wy).appendTo("#pageInfo");
+}
+

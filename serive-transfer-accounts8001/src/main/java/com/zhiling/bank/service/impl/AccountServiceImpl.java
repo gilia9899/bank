@@ -1,19 +1,11 @@
 package com.zhiling.bank.service.impl;
 
-import com.zhiling.bank.dao.TransationDao;
 import com.zhiling.bank.entity.Account;
 import com.zhiling.bank.dao.AccountDao;
 import com.zhiling.bank.entity.Transation;
 import com.zhiling.bank.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -38,6 +30,8 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> queryByUserid(Integer userid) {
         //获取该用户名下所有账户
         List<Account> accounts = accountDao.queryByUserid(userid);
+
+
         //从redis中查询所有记录
         List<Transation> transations = redisTemplate.opsForList().range("AllTranstation", 0, -1);
 

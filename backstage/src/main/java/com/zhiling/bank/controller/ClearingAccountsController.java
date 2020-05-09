@@ -15,8 +15,9 @@ public class ClearingAccountsController {
     @Resource
     private ClearingAccountsService acservice;
 
-    @GetMapping(value = "/clear")
-    public CommonResult checkPWD(String key) {
+    @PostMapping(value = "/clear")
+    public CommonResult clear() {
+        String key = "AllTranstation";
         int flag = acservice.running(key);
         if (flag == 1) {
             return new CommonResult(200, "操作成功", true);
@@ -26,11 +27,11 @@ public class ClearingAccountsController {
     }
 
 
-    @RequestMapping("/manageMember/{pageNum}")
-    public CommonResult manageMember(@PathVariable int pageNum,
-                               @RequestParam(defaultValue = "10") int pageSize,
-                               String key){
+    @GetMapping (value = "/alltransation/{pageNum}")
+    public CommonResult manageMember(@PathVariable int pageNum){
+        int pageSize = 10;
         PageHelper.startPage(pageNum,pageSize);
+        String key = "AllTranstation";
         PageInfo pageInfo=new PageInfo(acservice.sel(key));
         CommonResult c = new CommonResult();
         c.setData(pageInfo);

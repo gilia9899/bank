@@ -90,7 +90,10 @@ public class UserServiceImpl implements UserService {
         int flag = dao.insert(vo);
         System.out.println("flag:"+flag);
         if (flag > -1) {
-            User u = dao.selectOne(vo);
+            Example exam = new Example(User.class);
+            Example.Criteria cri = exam.createCriteria();
+            cri.andEqualTo("phone", vo.getPhone());
+            User u = dao.selectOneByExample(example);
             if (u != null) {
                 System.out.println("自动创建account");
                 System.out.println(u.getUserid());
@@ -100,8 +103,9 @@ public class UserServiceImpl implements UserService {
                 ac.setBank("中国银行");
                 ac.setCreatedate(new Date());
                 ac.setUserid(u.getUserid());
-                String accno = RandomUtil.randomNumbers(10);
+                String accno = RandomUtil.randomNumbers(5);
                 ac.setAccno(Convert.toInt(accno));
+                System.out.println(ac.getAccno());
                 acdao.insert(ac);
             }
 

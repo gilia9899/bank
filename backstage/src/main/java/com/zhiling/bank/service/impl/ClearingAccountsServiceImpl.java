@@ -1,20 +1,18 @@
 package com.zhiling.bank.service.impl;
 
-        import com.zhiling.bank.dao.AccountDAO;
-        import com.zhiling.bank.dao.TransationDAO;
-        import com.zhiling.bank.entity.Account;
-        import com.zhiling.bank.entity.Transation;
-        import com.zhiling.bank.service.ClearingAccountsService;
-        import org.springframework.data.redis.core.RedisTemplate;
-        import org.springframework.stereotype.Service;
+import com.zhiling.bank.dao.AccountDAO;
+import com.zhiling.bank.dao.TransationDAO;
+import com.zhiling.bank.entity.Account;
+import com.zhiling.bank.entity.Transation;
+import com.zhiling.bank.service.ClearingAccountsService;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
-        import javax.annotation.Resource;
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Timer;
-        import java.util.concurrent.ScheduledExecutorService;
-        import java.util.concurrent.ScheduledThreadPoolExecutor;
-
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
 @Service
 public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
@@ -22,6 +20,8 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
     @Resource(name = "redisTemplate")
     private RedisTemplate<String, Transation> redisTemplate;
+
+
 
     @Resource
     private AccountDAO dao;
@@ -34,27 +34,32 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
     @Override
     public void read(String key) {
 
-        List<Transation> list = redisTemplate.opsForList().range("AllTranstation",0,-1);
+        //从redis中查询所有记录
+        List<Transation> list = redisTemplate.opsForList().range("AllTranstation", 0, -1);
+
         for (int i=0;i<list.size();i++){
             Integer acc = list.get(i).getAccno();
             Integer tar = list.get(i).getTargetno();
-            Integer bal = Integer.valueOf(list.get(i).getBalance());
+            Double bal = Double.parseDouble(list.get(i).getBalance());
             clear(acc,bal);
             clear(tar,-bal);
-
-
+            list.get(i).setRisk("完成");
+            list.get(i).setTargetdate(new Date());
+            dao2.insert(list.get(i));
         }
+
+        redisTemplate.delete("AllTranstation");
 
     }
 
     @Override
-    public boolean clear(Integer acc,  Integer bal) {
+    public boolean clear(Integer acc,  Double bal) {
 
-        Account account = dao.selectByPrimaryKey(acc);
-        Integer bal2 = Integer.valueOf(account.getBalance());
-        account.setBalance(String.valueOf(bal2-bal));
-        int flag = dao.updateByPrimaryKey(account);
-
+        Account account = dao.selectById(acc);
+        Double bal2 = Double.parseDouble(account.getBalance());
+        account.setBalance(bal2-bal+"");
+        System.out.println(account.getBalance());
+        int flag = dao.update(account);
         if (flag>0){
             return true;
         }else {
@@ -64,7 +69,6 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
 
     @Override
     public Integer running(String key) {
-//        ScheduledExecutorService s = new ScheduledThreadPoolExecutor(1);
         Timer timer = new Timer(true);
 
 
@@ -80,6 +84,7 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
     public List<Transation> sel(String key) {
 
         List<Transation> list2 = dao2.selectAll();
+
         List<Transation> list1 = redisTemplate.opsForList().range("AllTranstation",0,-1);
         List<Transation> list = new ArrayList<>();
         for (Transation a :list2) {
@@ -91,4 +96,5 @@ public class ClearingAccountsServiceImpl implements ClearingAccountsService {
         return  list;
 
     }
+
 }

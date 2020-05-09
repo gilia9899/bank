@@ -4,16 +4,27 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-commons" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/backstage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/backstage/src/main/java/com/zhiling/bank/controller/ClearingAccountsController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backstage/src/main/java/com/zhiling/bank/controller/ExchangeController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backstage/src/main/java/com/zhiling/bank/service/impl/ClearingAccountsServiceImpl.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/consumer80" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java/com/zhiling/bank/controller/ExchangeController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java/com/zhiling/bank/controller/TransationShowController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java/com/zhiling/bank/controller/WeatherController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java/com/zhiling/bank/serivce/ExchangeServiceClint.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/java/com/zhiling/bank/serivce/WeatherServiceClint.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/bootstrap-3.3.7-dist" charset="GBK" />
     <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/css" charset="GBK" />
     <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/fonts" charset="GBK" />
     <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/show_transation.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/consumer80/src/main/resources/static/weather.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/eureka-server7001" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/serive-transfer-accounts8001" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-adress8016" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-transation8017" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-weather8018" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service-weather8018/src/main/java/com/zhiling/bank/controller/WeatherController.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/system-control" charset="UTF-8" />
   </component>
 </project>

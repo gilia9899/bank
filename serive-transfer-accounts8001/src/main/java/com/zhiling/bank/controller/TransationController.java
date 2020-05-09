@@ -105,7 +105,7 @@ public class TransationController {
             commonResult.setMessage("没找到该用户");
             return commonResult;
         }
-
+        transation.setTargetdate(new Date());
         transation.setRisk("完成");
         //转账
         boolean isSuccess = intraBankTransferService.intraBankTransfer(transation,inner,outer,money);

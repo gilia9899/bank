@@ -1,3 +1,8 @@
+$(function () {
+    var loginname = $.cookie("realname");
+    var loginTime = $.cookie("loginTime");
+    $("#Name").text(loginname);
+})
 /*
 * @Author: Marte
 * @Date:   2018-11-28 14:46:11

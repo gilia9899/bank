@@ -1,4 +1,6 @@
+
 $(function () {
+
     /**
      * 设置兑换列表
      */
@@ -92,7 +94,12 @@ function setMoney2() {
  * 转账
  */
 $("#transfer_btn").click(function() {
-        $.ajax({
+    var phone = $("#phone").val();
+    if(!(/^1[3456789]\d{9}$/.test(phone))){
+        alert("手机号码有误，请重填");
+        return false;
+    }
+    $.ajax({
             url: "transation/intraBankTransfer",
             type:"post",
             dataType:"json",

@@ -118,10 +118,6 @@ public class UserServiceImpl implements UserService {
         return 1;
     }
 
-    public static void main(String[] args) {
-
-
-    }
 
     @Override
     public User findById(Integer userid) {
@@ -138,6 +134,15 @@ public class UserServiceImpl implements UserService {
         if (vo.getUserid() == null || "".equals(vo.getUserid())) {
             return -1;
         }
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userid", vo.getUserid());
+        User u = dao.selectOneByExample(example);
+        String salt = u.getInfo1();
+        System.out.println(salt);
+        String userPWD= vo.getUserpwd();
+        String md5Code = Md5UUIDSaltUtil.createMd5Code(userPWD + salt);
+        vo.setUserpwd(md5Code);
         return dao.updateByPrimaryKey(vo);
     }
 

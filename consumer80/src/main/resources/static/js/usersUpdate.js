@@ -77,8 +77,10 @@ $("#update_btn").click(function() {
         checkPwd = false;
         alert("密码为空");
     }
-    if ($("#userpwd") != $("#check")){
+    if ($("#userpwd").val() != $("#check").val()){
         console.log("两次密码不一样")
+        console.log("第一次密码"+$("#userpwd").val());
+        console.log("第二次密码"+$("#check").val());
         check = false;
         alert("两次密码不一致");
     }
